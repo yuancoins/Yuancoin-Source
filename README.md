@@ -1,5 +1,8 @@
 
-yuancoin development tree
+YUANCOIN
+--------
+--2017--
+--------
 
 yuancoin is a PoS-based cryptocurrency.
 
