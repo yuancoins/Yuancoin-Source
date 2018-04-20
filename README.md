@@ -30,15 +30,21 @@ Transaction confirmations : 6 blocks
 
 Coin Name : Yuancoin
 Ticker : YUANC
+-------------------
 Website : http://officialyuancoin.ovh/
 Github Link : https://github.com/yuancoins/Yuancoin-Source
 Bitcointalk : https://bitcointalk.org/index.php?topic=1942012.0
 Mining pool : https://lpool.name/site/block?id=1709
+
 Social Media : 
+----------------
 - https://fr-fr.facebook.com/OfficialYuancoin/
 - https://twitter.com/yuancoin
 - https://t.me/YuancoinOfficial
-Exchanges : - https://www.tradesatoshi.com/Exchange?market=YUANC_BTC
+
+Exchanges : 
+----------------
+- https://www.tradesatoshi.com/Exchange?market=YUANC_BTC
 - https://coinsmarkets.com/trade-BTC-YUANC.htm
 
 
