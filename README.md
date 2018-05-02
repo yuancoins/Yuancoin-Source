@@ -5,7 +5,7 @@ YUANCOIN
 --------
 
 yuancoin is a PoS-based cryptocurrency.
-Yuancoin is an ambicious project you never seen. The first goal is to produce a movie based on an manga/anime. A real one, an movie who cares about the quality and the respect of the original story.
+Yuancoin is an ambicious project  you have never seen. The first goal is to produce a movie based on an manga/anime. A real one, a movie who cares about the quality and the respect of the original story.
 
 We will start with a movie based on OnePiece from Eiichiro Oda and after that we will create a vote system to choose the next manga / anime
 
