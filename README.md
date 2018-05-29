@@ -3,8 +3,12 @@ YUANCOIN
 --------
 --2017-2018--
 --------
+Udapte Wallet Yuancoin.zip
+Version 1.1.0
+Fix bug
+--------
 
-yuancoin is a PoS-based cryptocurrency.
+Yuancoin is a PoS-based cryptocurrency.
 Yuancoin is an ambicious project  you have never seen. The first goal is to produce a movie based on an manga/anime. A real one, a movie who cares about the quality and the respect of the original story.
 
 We will start with a movie based on OnePiece from Eiichiro Oda and after that we will create a vote system to choose the next manga / anime
@@ -32,7 +36,7 @@ Coin Name : Yuancoin
 Ticker : YUANC
 -------------------
 
-Website : http://officialyuancoin.ovh/
+Website : http://officialyuancoin.com
 Github Link : https://github.com/yuancoins/Yuancoin-Source
 Bitcointalk : https://bitcointalk.org/index.php?topic=1942012.0
 Mining pool : https://lpool.name/site/block?id=1709
