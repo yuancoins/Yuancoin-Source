@@ -43,6 +43,8 @@ Ticker : YUANC
 Social Media : 
 ----------------
 - https://t.me/YuancoinOfficial
+- https://www.reddit.com/user/Yuancoin/
+- https://twitter.com/yuancoinoffici1
 
 Exchanges : 
 ----------------
