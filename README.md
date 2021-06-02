@@ -36,9 +36,9 @@ Coin Name : Yuancoin
 Ticker : YUANC
 -------------------
 
-Website : http://officialyuancoin.com
-Github Link : https://github.com/yuancoins/Yuancoin-Source
-Bitcointalk : https://bitcointalk.org/index.php?topic=1942012.0
+- Website : http://officialyuancoin.com
+- Github Link : https://github.com/yuancoins/Yuancoin-Source
+- Bitcointalk : https://bitcointalk.org/index.php?topic=1942012.0
 
 Social Media : 
 ----------------
