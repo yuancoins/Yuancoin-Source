@@ -1,7 +1,7 @@
 
 YUANCOIN
 --------
---2017-2018--
+--2017-2021--
 --------
 Udapte Wallet Yuancoin.zip
 Version 1.1.0
@@ -39,18 +39,12 @@ Ticker : YUANC
 Website : http://officialyuancoin.com
 Github Link : https://github.com/yuancoins/Yuancoin-Source
 Bitcointalk : https://bitcointalk.org/index.php?topic=1942012.0
-Mining pool : https://lpool.name/site/block?id=1709
 
 Social Media : 
 ----------------
-- https://fr-fr.facebook.com/OfficialYuancoin/
-- https://twitter.com/yuancoin
 - https://t.me/YuancoinOfficial
 
 Exchanges : 
 ----------------
-- https://www.tradesatoshi.com/Exchange?market=YUANC_BTC
-- https://coinsmarkets.com/trade-BTC-YUANC.htm
-
-
+- Coming Soon
  
