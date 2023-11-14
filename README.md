@@ -10,6 +10,7 @@ Fix bug
 
 Yuancoin is a PoS-based cryptocurrency.
 Yuancoin is an ambicious project.
+14/11/2023 - Create the hopital for all people and poor !!
 
 Big collaboration :
 -
