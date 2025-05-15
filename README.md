@@ -1,7 +1,7 @@
 
 YUANCOIN
 --------
---2017-2024--
+--2017-2025--
 --------
 Udapte Wallet Yuancoin.zip
 Version 1.1.0
