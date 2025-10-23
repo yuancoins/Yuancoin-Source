@@ -1,3 +1,5 @@
+![Yuanverse v2 Banner](assets/Yuanverse_banner.png)
+
 # 🪙 Yuanverse v2 – Écosystème décentralisé de Yuancoin (YCC)
 
 **Whitepaper Officiel (FR/EN)**  
