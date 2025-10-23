@@ -1,54 +1,36 @@
+# 🪙 Yuanverse v2 – Écosystème décentralisé de Yuancoin (YCC)
 
-YUANCOIN
---------
---2017-2025--
---------
-Udapte Wallet Yuancoin.zip
-Version 1.1.0
-Fix bug
---------
+**Whitepaper Officiel (FR/EN)**  
+Version 2025 – Auteur : *Arnaud Biondelli, Founder & Lead Developer of Yuanverse*  
 
-Yuancoin is a PoS-based cryptocurrency.
-Yuancoin is an ambicious project.
-14/11/2023 - Create the hopital for all people and poor !!
+---
 
-Big collaboration :
--
+### 📘 Présentation / Overview
 
-SPECIFICATION
-----------------
-Order type: paid
-Algorithm : Scrypt
-Type : PoW/PoS
-Coin name : yuancoin
-Ticker : YUANC
-Address letter : Y
-RPC port : 18054
-P2P port : 18053
-Block reward : 1 coins
-Total coin supply :11 688 727 273 coins
-PoS percentage : 1% per year
-Last PoW block : 2147483647
-Coinbase maturity : 6 blocks
-Target spacing : 64 seconds
-Target timespan : 1 block
-Transaction confirmations : 6 blocks
+**🇫🇷**  
+Yuanverse v2 marque l’évolution de Yuancoin (YCC) vers un écosystème Web3 décentralisé, connecté et communautaire.  
+Ce whitepaper présente la vision, l’architecture, le système de récompenses et la feuille de route du projet.  
 
-Coin Name : Yuancoin
-Ticker : YUANC
--------------------
+**🇬🇧**  
+Yuanverse v2 represents the evolution of Yuancoin (YCC) into a decentralized, connected, and community-driven Web3 ecosystem.  
+This whitepaper details the project’s vision, architecture, reward system, and roadmap.
 
-- Website : coming soon
+---
 
-- Source
-- Bitcointalk : https://bitcointalk.org/index.php?topic=1942012.0
+### 📄 Télécharger le Whitepaper / Download the Whitepaper
 
-Social Media : 
-----------------
-- https://t.me/teamyuancoin
-- https://www.reddit.com/user/Yuancoin/
+[![Download Whitepaper](https://img.shields.io/badge/Download-Whitepaper-blueviolet?style=for-the-badge)](Yuanverse_Whitepaper_v2_FR-EN_2025.pdf)
 
-Exchanges : 
-----------------
-- Coming Soon
- 
+---
+
+### 🔗 Ressources / Resources
+
+- 🌐 **Site Web (à venir)** : [yuanverse.io](https://yuanverse.io)
+- 💾 **Code source officiel** : [Yuancoin GitHub](https://github.com/yuancoins/Yuancoin-Source)
+- 🪙 **Token** : YCC  
+- 🧑‍💻 **Auteur** : Arnaud Biondelli — Founder & Lead Developer of Yuanverse  
+
+---
+
+© 2025 **Yuanverse** – All Rights Reserved  
+*The next evolution of Yuancoin*
