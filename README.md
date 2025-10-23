@@ -1,4 +1,6 @@
-![Yuanverse v2 Banner](assets/Yuanverse_banner.png)
+<p align="center">
+  <img src="assets/Yuanverse_banner.png" alt="Yuanverse Banner" width="800">
+</p>
 
 # 🪙 Yuanverse v2 – Écosystème décentralisé de Yuancoin (YCC)
 
