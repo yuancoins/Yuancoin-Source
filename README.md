@@ -25,7 +25,6 @@ This whitepaper details the project’s vision, architecture, reward system, and
 
 ### 🔗 Ressources / Resources
 
-- 🌐 **Site Web (à venir)** : [yuanverse.io](https://yuanverse.io)
 - 💾 **Code source officiel** : [Yuancoin GitHub](https://github.com/yuancoins/Yuancoin-Source)
 - 🪙 **Token** : YCC  
 - 🧑‍💻 **Auteur** : Arnaud Biondelli — Founder & Lead Developer of Yuanverse  
