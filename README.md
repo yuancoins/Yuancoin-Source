@@ -88,7 +88,3 @@ Blockchain technology enables instant, fair, and decentralized transactions betw
   © 2025 <b>Yuanverse</b> – All Rights Reserved  
 </p>
 
-
-<p align="center">
-  © 2025 <b>Yuanverse</b> – All Rights Reserved  
-</p>
