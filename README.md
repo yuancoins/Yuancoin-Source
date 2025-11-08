@@ -1,9 +1,6 @@
-<p align="center">
-  <img src="assets/logo_yuanverse_v2.png" alt="Yuanverse Coin (YCC) Logo" width="220">
-</p>
 
 <p align="center">
-  <img src="assets/banner_yuanverse_v2.png" alt="Yuanverse v2 Banner" width="900">
+  <img src="assets/banner_yuanverse_v2.png" alt="Yuanverse v2 Banner" width="1200">
 </p>
 
 <h1 align="center">🪙 Yuanverse v2 — Decentralized AI & Web3 Ecosystem</h1>
