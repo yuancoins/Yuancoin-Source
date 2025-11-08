@@ -1,30 +1,32 @@
 <p align="center">
-  <img src="assets/Yuanverse_banner.png" alt="Yuanverse v2.1 Banner" width="900">
+  <img src="assets/logo_yuanverse_v2.png" alt="Yuanverse Coin (YCC) Logo" width="220">
 </p>
 
-<h1 align="center">🪙 Yuanverse v2.1 – Économie décentralisée au service des artisans français</h1>
-<h3 align="center"><i>From workshop to blockchain</i></h3>
+<p align="center">
+  <img src="assets/banner_yuanverse_v2_ai.png" alt="Yuanverse v2 Banner" width="900">
+</p>
+
+<h1 align="center">🪙 Yuanverse v2 — Decentralized AI & Web3 Ecosystem</h1>
+<h3 align="center"><i>The next evolution of Yuancoin</i></h3>
 
 ---
 
 ### 📘 Présentation / Overview
 
 **🇫🇷**  
-Yuanverse v2.1 marque une nouvelle étape pour **Yuancoin (YCC)** : la création d’un écosystème Web3 dédié aux **artisans français**.  
-Le projet vise à simplifier les paiements, les échanges et l’achat de matériel tout en valorisant la production locale et le savoir-faire français.  
-Grâce à la blockchain, les transactions deviennent rapides, équitables et sans intermédiaires.  
+Yuanverse v2 marque l’évolution de **Yuancoin (YCC)** vers un écosystème Web3 moderne, interconnecté et communautaire.  
+Ce projet vise à offrir un wallet unifié (Desktop / Mobile / Web), un système de récompenses dynamique, et une infrastructure blockchain sécurisée et évolutive.  
 
 **🇬🇧**  
-**Yuanverse v2.1** represents a new chapter for **Yuancoin (YCC)** — building a Web3 ecosystem designed to **empower French artisans**.  
-It simplifies payments, trade, and equipment purchasing while promoting local craftsmanship and transparency.  
-Blockchain technology enables instant, fair, and decentralized transactions between artisans and clients.  
+**Yuanverse v2** represents the evolution of **Yuancoin (YCC)** into a modern, interconnected, and community-driven Web3 ecosystem.  
+The project includes a unified wallet (Desktop / Mobile / Web), a dynamic reward system, and a secure, scalable blockchain foundation.  
 
 ---
 
 ### 📄 Télécharger le Whitepaper / Download the Whitepaper
 
 <p align="center">
-  <a href="Yuanverse_Whitepaper_v2.1_FR-EN_2025.pdf">
+  <a href="Yuanverse_Whitepaper_v2_FR-EN_2025.pdf">
     <img src="https://img.shields.io/badge/Download-Whitepaper-blueviolet?style=for-the-badge" alt="Download Whitepaper">
   </a>
 </p>
@@ -35,24 +37,23 @@ Blockchain technology enables instant, fair, and decentralized transactions betw
 
 | 🇫🇷 | 🇬🇧 |
 |-----|-----|
-| 💼 **Wallet des artisans** : paiements rapides, simples et sans frais bancaires | 💼 **Artisan Wallet**: fast, simple, and fee-free payments |
-| 🛠️ **Marketplace artisanale** : acheter/vendre des créations 100% françaises | 🛠️ **Artisan Marketplace**: buy/sell French-made products directly |
-| 🎯 **Système de récompenses** : cashback, missions et fidélité | 🎯 **Reward system**: cashback, missions, and loyalty |
-| 🧩 **Smart Contracts EVM** : Paiement, Staking, NFT, Référencement | 🧩 **EVM Smart Contracts**: Payment, Staking, NFT, Referral |
-| 🔐 **Sécurité avancée** : 2FA, clé seed, chiffrement local | 🔐 **Advanced Security**: 2FA, seed phrase, local encryption |
-| 🌍 **Gouvernance décentralisée (DAO)** | 🌍 **Decentralized governance (DAO)** |
+| 💎 **Wallet multi-plateforme** (Desktop, Mobile, Web) | 💎 **Multi-platform wallet** (Desktop, Mobile, Web) |
+| 🎯 **Système de récompenses** basé sur les activités et le staking | 🎯 **Reward system** based on activity and staking |
+| 🧩 **Smart Contracts EVM** : Staking, NFT, Référencement, Récompenses | 🧩 **EVM Smart Contracts**: Staking, NFT, Referral, Rewards |
+| 🔐 **Sécurité avancée** (2FA, seed, cryptage local) | 🔐 **Advanced security** (2FA, seed, local encryption) |
+| 🌍 **Architecture décentralisée** et transparente | 🌍 **Decentralized and transparent architecture** |
 
 ---
 
-### 🪙 Tokenomics (mise à jour 2025)
+### 🪙 Tokenomics
 
 | Catégorie | Pourcentage | Détail |
 |------------|-------------|--------|
-| 👷 Récompenses artisans & acheteurs | 35 % | Cashback, fidélité et missions communautaires |
-| 🔧 Développement & Maintenance | 25 % | Évolution du wallet et de la marketplace |
-| 🤝 Partenariats & Communication | 15 % | Coopératives, chambres, événements artisanaux |
-| 🏛️ Fonds communautaire (DAO) | 15 % | Projets votés par les artisans |
-| 🛡️ Réserve stratégique | 10 % | Sécurité et liquidité du token |
+| 🔧 Développement & Infrastructure | 30 % | Financement du développement et maintenance technique |
+| 🎁 Récompenses & Staking | 25 % | Distribution pour utilisateurs actifs et investisseurs fidèles |
+| 💼 Partenariats & Marketing | 20 % | Croissance de l’écosystème Yuanverse |
+| 🛡️ Réserve stratégique | 15 % | Sécurité et stabilisation du marché |
+| 👥 Communauté & DAO | 10 % | Gouvernance et décisions communautaires |
 
 ---
 
@@ -60,11 +61,11 @@ Blockchain technology enables instant, fair, and decentralized transactions betw
 
 | Période | Étapes clés |
 |----------|-------------|
-| **T4 2025** | Mise à jour du wallet YCC pour artisans |
-| **T1 2026** | Lancement de la marketplace artisanale (bêta) |
-| **T2 2026** | Déploiement du système de récompenses et DAO |
-| **T3 2026** | Partenariats avec fournisseurs français |
-| **T4 2026** | Expansion européenne et interopérabilité blockchain |
+| **T1 2025** | Migration du réseau Yuancoin vers architecture EVM |
+| **T2 2025** | Développement du wallet multi-plateforme |
+| **T3 2025** | Lancement du système de récompenses (missions, parrainage) |
+| **T4 2025** | Publication du Mainnet Yuanverse v2 |
+| **2026** | Extension internationale + intégration DAO et NFT Marketplace |
 
 ---
 
@@ -73,18 +74,20 @@ Blockchain technology enables instant, fair, and decentralized transactions betw
 - 💾 **Code source officiel** : [Yuancoin GitHub](https://github.com/yuancoins/Yuancoin-Source)  
 - 🪙 **Token** : YCC  
 - 👤 **Auteur / Author** : Arnaud Biondelli – Founder & Lead Developer of Yuanverse  
-- 🌐 **Hébergement** : GitHub (open-source, décentralisé)  
+- 🌐 **Site web (à venir)** : [yuanverse.io](https://yuanverse.io)  
 
 ---
 
 <p align="center">
-  <i>“De l’atelier au blockchain — un monde façonné par la création, l’intelligence et la liberté.”</i><br>
-  <i>“From workshop to blockchain — a world shaped by creation, intelligence, and freedom.”</i>
+  <i>“De l’artisanat à la chaîne — un monde façonné par la création, l’intelligence et la liberté.”</i><br>
+  <i>“From craftsmanship to the blockchain — a world shaped by creation, intelligence, and freedom.”</i>
 </p>
 
 ---
 
 <p align="center">
-  © 2025 <b>Yuanverse</b> – All Rights Reserved  
+  <b>© 2025 Yuanverse v2 – Arnaud Biondelli</b>
+</p>
+
 </p>
 
