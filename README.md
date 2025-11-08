@@ -3,7 +3,7 @@
 </p>
 
 <p align="center">
-  <img src="assets/banner_yuanverse_v2_ai.png" alt="Yuanverse v2 Banner" width="900">
+  <img src="assets/Yuanverse_banner.png" alt="Yuanverse v2 Banner" width="900">
 </p>
 
 <h1 align="center">🪙 Yuanverse v2 — Decentralized AI & Web3 Ecosystem</h1>
