@@ -8,108 +8,79 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/ethers/5.7.2/ethers.umd.min.js"></script>
     <style>
         body {
-            background-color: #050505;
-            color: white;
-            font-family: 'Inter', sans-serif;
-            background-image: linear-gradient(rgba(5, 5, 5, 0.85), rgba(5, 5, 5, 0.85)), url('Yuanverse_banner.jpg');
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed;
+            background-color: #050505; color: white; font-family: 'Inter', sans-serif;
+            background-image: linear-gradient(rgba(5,5,5,0.85), rgba(5,5,5,0.85)), url('Yuanverse_banner.jpg');
+            background-size: cover; background-position: center; background-attachment: fixed;
         }
         .gradient-text {
             background: linear-gradient(90deg, #d4af37, #9333ea, #db2777);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
         }
         .glass-card {
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(15px);
-            border: 1px solid rgba(255, 255, 255, 0.12);
-            border-radius: 24px;
+            background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.12); border-radius: 24px;
         }
-        .btn-primary {
-            background: linear-gradient(90deg, #d4af37, #9333ea);
-            transition: all 0.3s ease;
-        }
+        .btn-primary { background: linear-gradient(90deg, #d4af37, #9333ea); transition: all 0.3s ease; }
     </style>
 </head>
 <body class="min-h-screen pb-20">
 
     <nav class="flex justify-between items-center p-6 max-w-7xl mx-auto">
-        <div class="text-3xl font-bold gradient-text tracking-tighter text-white">YUANVERSE 2.0</div>
-        <button id="connectWallet" class="btn-primary px-7 py-2.5 rounded-full font-semibold shadow-lg text-white">
-            Connexion Wallet
-        </button>
+        <div class="text-3xl font-bold gradient-text tracking-tighter">YUANVERSE 2.0</div>
+        <button id="connectWallet" class="btn-primary px-7 py-2.5 rounded-full font-semibold shadow-lg">Connexion Wallet</button>
     </nav>
 
     <main class="max-w-4xl mx-auto mt-8 p-6 text-center">
-        <h1 class="text-5xl font-extrabold mb-4 tracking-tight text-white">Gérez vos <span class="gradient-text">YCC</span></h1>
+        <h1 class="text-5xl font-extrabold mb-4 tracking-tight">Gérez vos <span class="gradient-text">YCC</span></h1>
         
         <div class="glass-card p-10 shadow-2xl mb-10 relative flex flex-col items-center">
             <div class="mb-6 w-24 h-24 flex items-center justify-center">
                 <img src="./assets/logo_yuanverse_v2.png" alt="YCC Logo" class="w-full h-full object-contain">
             </div>
-            
-            <h2 class="text-xs uppercase tracking-[0.3em] text-gray-400 mb-4 text-center">Solde actuel de votre compte</h2>
-            <div id="balanceText" class="text-6xl font-black mb-6 tracking-tighter text-white">
-                0 <span class="text-xl font-light text-yellow-500">YCC</span>
-            </div>
+            <h2 class="text-xs uppercase tracking-[0.3em] text-gray-400 mb-4">Solde actuel</h2>
+            <div id="balanceText" class="text-6xl font-black mb-6 tracking-tighter">0 <span class="text-xl font-light text-yellow-500">YCC</span></div>
             
             <div class="flex flex-wrap justify-center gap-4 w-full">
-                <button class="bg-white/10 hover:bg-white/20 px-10 py-3 rounded-xl font-bold border border-white/5 transition text-white">Envoyer</button>
-                <button class="bg-white/10 hover:bg-white/20 px-10 py-3 rounded-xl font-bold border border-white/5 transition text-white">Recevoir</button>
+                <button class="bg-white/10 px-10 py-3 rounded-xl font-bold border border-white/5">Envoyer</button>
+                <button class="bg-white/10 px-10 py-3 rounded-xl font-bold border border-white/5">Recevoir</button>
             </div>
         </div>
     </main>
 
     <script>
         const contractAddress = "0xd190812c51a1abe1078f23dc6f5453830e59e550";
+        // ABI minimale avec une seule fonction
+        const minABI = [{"constant":true,"inputs":[{"name":"_owner","type":"address"}],"name":"balanceOf","outputs":[{"name":"balance","type":"uint256"}],"type":"function"}];
+
         const connectBtn = document.getElementById('connectWallet');
         const balanceDisplay = document.getElementById('balanceText');
 
         async function updateBalance() {
-            if (typeof window.ethereum === 'undefined') {
-                alert("Veuillez installer MetaMask !");
-                return;
-            }
+            if (!window.ethereum) return alert("Installez MetaMask !");
 
             try {
-                // 1. On demande l'accès aux comptes d'abord
-                const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+                const provider = new ethers.providers.Web3Provider(window.ethereum, "any");
+                const accounts = await provider.send("eth_requestAccounts", []);
                 const userAddress = accounts[0];
 
-                // 2. On attend un tout petit peu que le provider s'initialise
-                const provider = new ethers.providers.Web3Provider(window.ethereum, "any");
-                
-                // 3. On vérifie qu'on est sur le bon ID de chaîne (56 = BSC)
-                const network = await provider.getNetwork();
-                if (network.chainId !== 56) {
-                    alert("Changez de réseau pour BNB Smart Chain dans MetaMask.");
-                    return;
-                }
-
                 connectBtn.innerText = userAddress.substring(0,6) + "..." + userAddress.substring(userAddress.length - 4);
-                connectBtn.style.background = "#16a34a";
-
-                // 4. Appel direct pour le solde (plus fiable)
-                const data = "0x70a08231" + ethers.utils.hexZeroPad(userAddress, 32).substring(2);
-                const result = await provider.send("eth_call", [{
-                    to: contractAddress,
-                    data: data
-                }, "latest"]);
-
-                const balanceBN = ethers.BigNumber.from(result);
-                const formattedBalance = ethers.utils.formatUnits(balanceBN, 18);
                 
-                const finalValue = parseFloat(formattedBalance).toLocaleString('fr-FR', { 
-                    maximumFractionDigits: 0 
-                });
+                // On crée l'objet contrat
+                const contract = new ethers.Contract(contractAddress, minABI, provider);
+                
+                // On récupère le solde
+                const balance = await contract.balanceOf(userAddress);
+                
+                // Conversion
+                const formatted = ethers.utils.formatUnits(balance, 18);
+                const finalValue = parseFloat(formatted).toLocaleString('fr-FR');
 
                 balanceDisplay.innerHTML = `${finalValue} <span class="text-xl font-light text-yellow-500">YCC</span>`;
+                connectBtn.classList.replace('btn-primary', 'bg-green-600');
 
             } catch (err) {
                 console.error(err);
-                alert("Erreur : " + err.message);
+                alert("Erreur : Assurez-vous d'être sur la BNB Chain dans MetaMask.");
             }
         }
 
