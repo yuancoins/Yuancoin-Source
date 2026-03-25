@@ -10,7 +10,7 @@
             background-color: #050505;
             color: white;
             font-family: 'Inter', sans-serif;
-            background-image: linear-gradient(rgba(5, 5, 5, 0.8), rgba(5, 5, 5, 0.8)), url('Yuanverse_banner.jpg');
+            background-image: linear-gradient(rgba(5, 5, 5, 0.85), rgba(5, 5, 5, 0.85)), url('Yuanverse_banner.jpg');
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
@@ -23,41 +23,81 @@
         .glass-card {
             background: rgba(255, 255, 255, 0.05);
             backdrop-filter: blur(15px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.12);
             border-radius: 24px;
         }
         .btn-primary {
-            background: linear-gradient(90deg, #9333ea, #db2777);
+            background: linear-gradient(90deg, #d4af37, #9333ea);
             transition: all 0.3s ease;
         }
         .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 20px rgba(147, 51, 234, 0.3);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(212, 175, 55, 0.3);
         }
     </style>
 </head>
 <body class="min-h-screen">
 
     <nav class="flex justify-between items-center p-6 max-w-7xl mx-auto">
-        <div class="text-2xl font-bold gradient-text tracking-tighter">YUANVERSE 2.0</div>
-        <button id="connectWallet" class="btn-primary px-6 py-2 rounded-full font-semibold shadow-lg">
+        <div class="text-3xl font-bold gradient-text tracking-tighter">YUANVERSE 2.0</div>
+        <button id="connectWallet" class="btn-primary px-7 py-2.5 rounded-full font-semibold shadow-lg">
             Connexion Wallet
         </button>
     </nav>
 
     <main class="max-w-4xl mx-auto mt-12 p-6 text-center">
-        <h1 class="text-6xl font-extrabold mb-4 tracking-tight">Gérez vos <span class="gradient-text">YCC</span></h1>
-        <p class="text-gray-300 mb-10 text-lg max-w-2xl mx-auto">L'écosystème décentralisé nouvelle génération dédié aux artisans français.</p>
+        <h1 class="text-6xl font-extrabold mb-5 tracking-tight">Gérez vos <span class="gradient-text">YCC</span></h1>
+        <p class="text-gray-300 mb-12 text-lg max-w-2xl mx-auto">L'écosystème décentralisé nouvelle génération dédié aux artisans français.</p>
 
-        <div class="glass-card p-12 shadow-2xl mb-12 relative overflow-hidden">
+        <div class="glass-card p-12 shadow-2xl mb-12 relative flex flex-col items-center">
             
-            <div class="flex justify-center mb-6">
-                <img src="./assets/logo_yuanverse_v2.png" alt="YCC Logo" class="w-24 h-24 object-contain opacity-100" onerror="this.style.display='none'">
+            <div class="mb-8 w-28 h-28 flex items-center justify-center">
+                <img src="./assets/logo_yuanverse_v2.png" alt="YCC Logo" class="w-full h-full object-contain" onerror="this.style.display='none'">
             </div>
             
-            <h2 class="text-xs uppercase tracking-[0.3em] text-gray-400 mb-4">Solde de votre compte</h2>
-            <div class="text-7xl font-black mb-6 tracking-tighter">400,000,000 <span class="text-2xl font-light text-yellow-500">YCC</span></div>
+            <h2 class="text-xs uppercase tracking-[0.3em] text-gray-400 mb-5">Solde actuel de votre compte</h2>
+            <div class="text-7xl font-black mb-7 tracking-tighter">400,000,000 <span class="text-2xl font-light text-yellow-500">YCC</span></div>
             
-            <div class="flex flex-wrap justify-center gap-4 mt-10">
-                <button class="bg-white/10 hover:bg-white/20 px-10 py-4 rounded-2xl font-bold transition-all border border-white/5">Envoyer</button>
-                <button class="bg-white/10 hover:bg-white/20 px-10 py-4 rounded-2xl font-bold transition-all border border-white/5">
+            <div class="flex flex-wrap justify-center gap-5 mt-8 w-full">
+                <button class="bg-white/10 hover:bg-white/20 px-12 py-4 rounded-2xl font-bold transition-all border border-white/5 flex-grow sm:flex-grow-0">Envoyer</button>
+                <button class="bg-white/10 hover:bg-white/20 px-12 py-4 rounded-2xl font-bold transition-all border border-white/5 flex-grow sm:flex-grow-0">Recevoir</button>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div class="glass-card p-9 text-left group hover:border-purple-500/50 transition-colors">
+                <div class="w-14 h-14 bg-purple-500/20 rounded-xl flex items-center justify-center mb-5 text-purple-500 font-extrabold text-xl border border-purple-500/30">A</div>
+                <h3 class="text-2xl font-bold mb-3">Espace Artisan</h3>
+                <p class="text-gray-400 leading-relaxed">Vendez vos créations et recevez vos paiements en YCC instantanément.</p>
+            </div>
+            <div class="glass-card p-9 text-left group hover:border-yellow-500/50 transition-colors">
+                <div class="w-14 h-14 bg-yellow-500/20 rounded-xl flex items-center justify-center mb-5 text-yellow-500 font-extrabold text-xl border border-yellow-500/30">S</div>
+                <h3 class="text-2xl font-bold mb-3">Staking</h3>
+                <p class="text-gray-400 leading-relaxed">Faites fructifier vos tokens et soutenez l'artisanat français.</p>
+            </div>
+        </div>
+    </main>
+
+    <footer class="mt-20 pb-12 text-gray-500 text-sm">
+        &copy; 2025 Yuanverse Ecosystem - Tous droits réservés
+    </footer>
+
+    <script>
+        const connectBtn = document.getElementById('connectWallet');
+        connectBtn.addEventListener('click', async () => {
+            if (window.ethereum) {
+                try {
+                    const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+                    const addr = accounts[0];
+                    connectBtn.innerText = "Connecté : " + addr.substring(0,6) + "..." + addr.substring(addr.length - 4);
+                    connectBtn.classList.replace('btn-primary', 'bg-green-600');
+                } catch (error) {
+                    console.error("Erreur de connexion");
+                }
+            } else {
+                alert("Installez MetaMask pour utiliser le Yuanverse Wallet !");
+            }
+        });
+    </script>
+</body>
+</html>
