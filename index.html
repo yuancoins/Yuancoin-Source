@@ -56,28 +56,19 @@
             </div>
             
             <div class="flex flex-wrap justify-center gap-4 w-full">
-                <button class="bg-white/10 hover:bg-white/20 px-10 py-3 rounded-xl font-bold border border-white/5 transition">Envoyer</button>
-                <button class="bg-white/10 hover:bg-white/20 px-10 py-3 rounded-xl font-bold border border-white/5 transition">Recevoir</button>
-            </div>
-        </div>
-
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-left">
-            <div class="glass-card p-8 border-l-4 border-purple-500">
-                <h3 class="text-xl font-bold mb-2">Espace Artisan</h3>
-                <p class="text-gray-400 text-sm">Prêt pour le commerce décentralisé.</p>
-            </div>
-            <div class="glass-card p-8 border-l-4 border-yellow-500">
-                <h3 class="text-xl font-bold mb-2">Staking</h3>
-                <p class="text-gray-400 text-sm">Gagnez des récompenses en YCC.</p>
+                <button class="bg-white/10 px-10 py-3 rounded-xl font-bold border border-white/5 transition">Envoyer</button>
+                <button class="bg-white/10 px-10 py-3 rounded-xl font-bold border border-white/5 transition">Recevoir</button>
             </div>
         </div>
     </main>
 
     <script>
         const contractAddress = "0xd190812c51a1abe1078f23dc6f5453830e59e550";
-
         const connectBtn = document.getElementById('connectWallet');
         const balanceDisplay = document.getElementById('balanceText');
+
+        // On définit un serveur de secours public au cas où MetaMask bloque
+        const backupProvider = new ethers.providers.JsonRpcProvider("https://rpc.ankr.com/bsc");
 
         async function updateBalance() {
             if (!window.ethereum) {
@@ -86,32 +77,20 @@
             }
 
             try {
-                const provider = new ethers.providers.Web3Provider(window.ethereum);
-                
-                // On s'assure d'être sur la bonne chaine (56)
-                const { chainId } = await provider.getNetwork();
-                if (chainId !== 56) {
-                    await window.ethereum.request({
-                        method: 'wallet_switchEthereumChain',
-                        params: [{ chainId: '0x38' }],
-                    });
-                }
-
-                const accounts = await provider.send("eth_requestAccounts", []);
+                // 1. Connexion au compte
+                const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
                 const userAddress = accounts[0];
 
                 connectBtn.innerText = userAddress.substring(0,6) + "..." + userAddress.substring(userAddress.length - 4);
                 connectBtn.style.background = "#16a34a";
 
-                // Appel via méthode de secours (Signature brute)
+                // 2. Appel du solde via le serveur de secours (pour éviter les erreurs RPC de MetaMask)
                 const data = "0x70a08231" + ethers.utils.hexZeroPad(userAddress, 32).substring(2);
                 
-                const result = await provider.call({
+                const result = await backupProvider.call({
                     to: contractAddress,
                     data: data
                 });
-
-                if (result === "0x") throw new Error("Réponse vide du contrat");
 
                 const balanceBN = ethers.BigNumber.from(result);
                 const formattedBalance = ethers.utils.formatUnits(balanceBN, 18);
@@ -124,7 +103,7 @@
 
             } catch (err) {
                 console.error(err);
-                alert("Erreur de synchronisation. Assurez-vous d'avoir enregistré le nouveau RPC Binance dans MetaMask.");
+                alert("Erreur critique : " + err.message);
             }
         }
 
