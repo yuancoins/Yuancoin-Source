@@ -11,7 +11,6 @@
             background-color: #050505;
             color: white;
             font-family: 'Inter', sans-serif;
-            /* Utilisation de ta bannière en fond avec un voile sombre pour la lisibilité */
             background-image: linear-gradient(rgba(5, 5, 5, 0.85), rgba(5, 5, 5, 0.85)), url('Yuanverse_banner.jpg');
             background-size: cover;
             background-position: center;
@@ -32,10 +31,6 @@
             background: linear-gradient(90deg, #d4af37, #9333ea);
             transition: all 0.3s ease;
         }
-        .btn-primary:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 20px rgba(212, 175, 55, 0.3);
-        }
     </style>
 </head>
 <body class="min-h-screen pb-20">
@@ -48,85 +43,69 @@
     </nav>
 
     <main class="max-w-4xl mx-auto mt-8 p-6 text-center">
-        <h1 class="text-5xl font-extrabold mb-4 tracking-tight text-white">Gérez vos <span class="gradient-text">YCC</span></h1>
-        <p class="text-gray-300 mb-10 text-lg max-w-2xl mx-auto">L'écosystème décentralisé nouvelle génération dédié aux artisans français.</p>
-
+        <h1 class="text-5xl font-extrabold mb-4 tracking-tight">Gérez vos <span class="gradient-text">YCC</span></h1>
+        
         <div class="glass-card p-10 shadow-2xl mb-10 relative flex flex-col items-center">
-            
             <div class="mb-6 w-24 h-24 flex items-center justify-center">
-                <img src="./assets/logo_yuanverse_v2.png" alt="YCC Logo" class="w-full h-full object-contain" onerror="this.style.display='none'">
+                <img src="./assets/logo_yuanverse_v2.png" alt="YCC Logo" class="w-full h-full object-contain">
             </div>
             
-            <h2 class="text-xs uppercase tracking-[0.3em] text-gray-400 mb-4">Solde actuel de votre compte</h2>
-            
-            <div id="balanceText" class="text-6xl font-black mb-6 tracking-tighter">
+            <h2 class="text-xs uppercase tracking-[0.3em] text-gray-400 mb-4">Solde actuel</h2>
+            <div id="balanceText" class="text-6xl font-black mb-6 tracking-tighter text-white">
                 0 <span class="text-xl font-light text-yellow-500">YCC</span>
             </div>
             
             <div class="flex flex-wrap justify-center gap-4 w-full">
-                <button class="bg-white/10 hover:bg-white/20 px-10 py-3 rounded-xl font-bold transition-all border border-white/5">Envoyer</button>
-                <button class="bg-white/10 hover:bg-white/20 px-10 py-3 rounded-xl font-bold transition-all border border-white/5">Recevoir</button>
+                <button class="bg-white/10 px-10 py-3 rounded-xl font-bold border border-white/5">Envoyer</button>
+                <button class="bg-white/10 px-10 py-3 rounded-xl font-bold border border-white/5">Recevoir</button>
             </div>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div class="glass-card p-8 text-left group hover:border-purple-500/50 transition-colors">
-                <div class="w-12 h-12 bg-purple-500/20 rounded-xl flex items-center justify-center mb-4 text-purple-500 font-extrabold text-xl border border-purple-500/30">A</div>
+            <div class="glass-card p-8 text-left border-l-4 border-purple-500">
                 <h3 class="text-xl font-bold mb-2">Espace Artisan</h3>
-                <p class="text-gray-400 text-sm leading-relaxed">Vendez vos créations et recevez vos paiements en YCC instantanément.</p>
+                <p class="text-gray-400 text-sm">Vendez vos créations en YCC.</p>
             </div>
-            <div class="glass-card p-8 text-left group hover:border-yellow-500/50 transition-colors">
-                <div class="w-12 h-12 bg-yellow-500/20 rounded-xl flex items-center justify-center mb-4 text-yellow-500 font-extrabold text-xl border border-yellow-500/30">S</div>
+            <div class="glass-card p-8 text-left border-l-4 border-yellow-500">
                 <h3 class="text-xl font-bold mb-2">Staking</h3>
-                <p class="text-gray-400 text-sm leading-relaxed">Faites fructifier vos tokens et soutenez l'artisanat français.</p>
+                <p class="text-gray-400 text-sm">Gagnez des récompenses.</p>
             </div>
         </div>
     </main>
 
-    <footer class="mt-10 text-gray-500 text-xs text-center">
-        &copy; 2025 Yuanverse Ecosystem - Tous droits réservés
-    </footer>
-
     <script>
-        // CONFIGURATION DU CONTRAT YCC
-        const contractAddress = "0xd190812c51a1abe1078f23dc6f5453830e59e550"; 
+        const contractAddress = "0xd190812c51a1abe1078f23dc6f5453830e59e550";
         const tokenAbi = ["function balanceOf(address owner) view returns (uint256)"];
 
         const connectBtn = document.getElementById('connectWallet');
         const balanceDisplay = document.getElementById('balanceText');
 
-        connectBtn.addEventListener('click', async () => {
-            if (window.ethereum) {
-                try {
-                    // 1. Demander la connexion au wallet (MetaMask)
-                    const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
-                    const userAddress = accounts[0];
-                    
-                    // Mise à jour visuelle du bouton avec l'adresse courte
-                    connectBtn.innerText = userAddress.substring(0,6) + "..." + userAddress.substring(userAddress.length - 4);
-                    connectBtn.classList.replace('btn-primary', 'bg-green-600');
+        async function updateBalance() {
+            try {
+                const provider = new ethers.providers.Web3Provider(window.ethereum);
+                const accounts = await provider.send("eth_requestAccounts", []);
+                const userAddress = accounts[0];
 
-                    // 2. Connexion à la BNB Smart Chain
-                    const provider = new ethers.providers.Web3Provider(window.ethereum);
-                    const contract = new ethers.Contract(contractAddress, tokenAbi, provider);
-                    
-                    // 3. Récupération du solde réel du contrat
-                    const balance = await contract.balanceOf(userAddress);
-                    
-                    // 4. Formatage (on divise par 10^18 pour les décimales standards)
-                    const formattedBalance = ethers.utils.formatUnits(balance, 18);
-                    
-                    // 5. Mise à jour de l'affichage avec ton chiffre réel
-                    balanceDisplay.innerHTML = `${parseFloat(formattedBalance).toLocaleString()} <span class="text-xl font-light text-yellow-500">YCC</span>`;
+                // Affichage adresse abrégée
+                connectBtn.innerText = userAddress.substring(0,6) + "..." + userAddress.substring(userAddress.length - 4);
+                connectBtn.style.background = "#16a34a";
 
-                } catch (error) {
-                    console.error("Erreur de connexion :", error);
-                    alert("Assurez-vous d'être sur le réseau BNB Smart Chain dans MetaMask.");
-                }
-            } else {
-                alert("Installez MetaMask pour utiliser le Yuanverse Wallet !");
+                // Lecture contrat
+                const contract = new ethers.Contract(contractAddress, tokenAbi, provider);
+                const balance = await contract.balanceOf(userAddress);
+                
+                // Formatage propre
+                const formattedBalance = ethers.utils.formatUnits(balance, 18);
+                const displayValue = parseFloat(formattedBalance).toLocaleString('fr-FR', { minimumFractionDigits: 0, maximumFractionDigits: 2 });
+
+                balanceDisplay.innerHTML = `${displayValue} <span class="text-xl font-light text-yellow-500">YCC</span>`;
+            } catch (err) {
+                console.error(err);
+                alert("Erreur de connexion : " + err.message);
             }
-        });
+        }
+
+        connectBtn.addEventListener('click', updateBalance);
     </script>
 </body>
 </html>
