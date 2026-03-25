@@ -24,7 +24,6 @@
         .glass-card:hover { border-color: rgba(212, 175, 55, 0.3); }
         .btn-primary { background: linear-gradient(90deg, #d4af37, #9333ea); transition: all 0.3s ease; }
         .btn-telegram { background: #0088cc; transition: all 0.3s ease; }
-        .btn-telegram:hover { background: #0077b5; transform: translateY(-2px); }
         .btn-outline { border: 1px solid rgba(255, 255, 255, 0.15); background: rgba(255, 255, 255, 0.03); transition: all 0.3s ease; }
         .btn-outline:hover { background: rgba(255, 255, 255, 0.1); border-color: #d4af37; }
         
@@ -135,6 +134,12 @@
                 provider = new ethers.providers.Web3Provider(window.ethereum);
                 signer = provider.getSigner();
                 contract = new ethers.Contract(tokenContractAddress, minABI, signer);
+
+                // Vérifier réseau
+                try {
+                    await window.ethereum.request({ method: 'wallet_switchEthereumChain', params: [{ chainId: '0x38' }] });
+                } catch (e) { console.log("Déjà sur BSC"); }
+
                 const balance = await contract.balanceOf(currentUserAddress);
                 const formatted = ethers.utils.formatUnits(balance, 18);
                 connectBtn.innerText = currentUserAddress.substring(0,6) + "..." + currentUserAddress.substring(currentUserAddress.length - 4);
@@ -153,23 +158,36 @@
                 await tx.wait();
                 alert("Envoi confirmé !");
                 closeModals(); connect();
-            } catch (err) { alert("Erreur d'envoi. Vérifiez vos BNB (gaz)."); }
+            } catch (err) { alert("Erreur d'envoi. Vérifiez vos BNB."); }
+        }
+
+        async function addYccToWallet() {
+            if (!window.ethereum) return alert("MetaMask non détecté !");
+            
+            // Correction ici : On utilise l'URL complète pour le logo
+            const fullUrl = window.location.href.split('#')[0].split('?')[0];
+            const logoUrl = fullUrl.endsWith('/') ? `${fullUrl}assets/logo_yuanverse_v2.png` : `${fullUrl.substring(0, fullUrl.lastIndexOf('/'))}/assets/logo_yuanverse_v2.png`;
+
+            try {
+                await window.ethereum.request({
+                    method: 'wallet_watchAsset',
+                    params: {
+                        type: 'ERC20',
+                        options: {
+                            address: tokenContractAddress,
+                            symbol: 'YCC',
+                            decimals: 18,
+                            image: logoUrl,
+                        },
+                    },
+                });
+            } catch (e) { console.error(e); }
         }
 
         function copyAddress() {
             navigator.clipboard.writeText(currentUserAddress);
             document.getElementById('copyBtn').innerText = "Copié !";
             setTimeout(() => document.getElementById('copyBtn').innerText = "Copier l'adresse", 2000);
-        }
-
-        async function addYccToWallet() {
-            if (!window.ethereum) return;
-            try {
-                await window.ethereum.request({
-                    method: 'wallet_watchAsset',
-                    params: { type: 'ERC20', options: { address: tokenContractAddress, symbol: 'YCC', decimals: 18, image: 'https://yuanverse.github.io/assets/logo_yuanverse_v2.png' } },
-                });
-            } catch (e) { console.error(e); }
         }
 
         connectBtn.onclick = connect;
