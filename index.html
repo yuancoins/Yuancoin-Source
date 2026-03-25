@@ -81,27 +81,41 @@
         const balanceDisplay = document.getElementById('balanceText');
 
         async function updateBalance() {
-            try {
-                const provider = new ethers.providers.Web3Provider(window.ethereum);
-                const accounts = await provider.send("eth_requestAccounts", []);
-                const userAddress = accounts[0];
+            // Détection du provider (MetaMask ou Binance Wallet)
+            const provider_source = window.ethereum || window.BinanceChain;
 
-                // Affichage adresse abrégée
-                connectBtn.innerText = userAddress.substring(0,6) + "..." + userAddress.substring(userAddress.length - 4);
-                connectBtn.style.background = "#16a34a";
+            if (provider_source) {
+                try {
+                    const provider = new ethers.providers.Web3Provider(provider_source);
+                    
+                    // Demande d'accès aux comptes
+                    let accounts;
+                    if (window.BinanceChain && provider_source === window.BinanceChain) {
+                        accounts = await window.BinanceChain.request({ method: 'eth_requestAccounts' });
+                    } else {
+                        accounts = await provider.send("eth_requestAccounts", []);
+                    }
 
-                // Lecture contrat
-                const contract = new ethers.Contract(contractAddress, tokenAbi, provider);
-                const balance = await contract.balanceOf(userAddress);
-                
-                // Formatage propre
-                const formattedBalance = ethers.utils.formatUnits(balance, 18);
-                const displayValue = parseFloat(formattedBalance).toLocaleString('fr-FR', { minimumFractionDigits: 0, maximumFractionDigits: 2 });
+                    const userAddress = accounts[0];
 
-                balanceDisplay.innerHTML = `${displayValue} <span class="text-xl font-light text-yellow-500">YCC</span>`;
-            } catch (err) {
-                console.error(err);
-                alert("Erreur de connexion : " + err.message);
+                    // Affichage adresse courte
+                    connectBtn.innerText = userAddress.substring(0,6) + "..." + userAddress.substring(userAddress.length - 4);
+                    connectBtn.style.background = "#16a34a";
+
+                    // Lecture du contrat
+                    const contract = new ethers.Contract(contractAddress, tokenAbi, provider);
+                    const balance = await contract.balanceOf(userAddress);
+                    
+                    const formattedBalance = ethers.utils.formatUnits(balance, 18);
+                    const displayValue = parseFloat(formattedBalance).toLocaleString('fr-FR');
+
+                    balanceDisplay.innerHTML = `${displayValue} <span class="text-xl font-light text-yellow-500">YCC</span>`;
+                } catch (err) {
+                    console.error(err);
+                    alert("Erreur : " + (err.message || "Problème de connexion"));
+                }
+            } else {
+                alert("Aucun Wallet détecté (MetaMask ou Binance) !");
             }
         }
 
