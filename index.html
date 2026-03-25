@@ -6,6 +6,7 @@
     <title>Yuanverse Wallet 2.0 - YCC</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/ethers/5.7.2/ethers.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
     <style>
         body {
             background-color: #050505; color: white; font-family: 'Inter', sans-serif;
@@ -24,10 +25,11 @@
         .btn-buy { background: linear-gradient(90deg, #f3ba2f, #d4af37); color: #000; transition: all 0.3s ease; }
         .btn-telegram { background: #0088cc; }
         .btn-outline { border: 1px solid rgba(255, 255, 255, 0.15); background: rgba(255, 255, 255, 0.03); }
-        
         .modal { display: none; position: fixed; inset: 0; z-index: 100; align-items: center; justify-content: center; padding: 1rem; background: rgba(0,0,0,0.85); backdrop-filter: blur(8px); }
         input { background: rgba(255,255,255,0.05) !important; border: 1px solid rgba(255,255,255,0.1) !important; color: white !important; }
         #disconnectBtn { display: none; }
+        /* Style spécial pour que le QR Code soit lisible */
+        #qrcode img { margin: 0 auto; border: 8px solid white; border-radius: 12px; }
     </style>
 </head>
 <body class="min-h-screen pb-20">
@@ -52,9 +54,7 @@
             <div id="balanceText" class="text-6xl font-black mb-8 tracking-tighter text-white">0 <span class="text-xl font-light text-yellow-500">YCC</span></div>
             
             <div class="flex flex-col gap-3 w-full max-w-xs">
-                <a href="https://pancakeswap.finance/swap?outputCurrency=0x4E87b198A814a89E47405E4904f97d8A0e31BE95" target="_blank" class="btn-buy py-3 rounded-xl font-bold text-center shadow-lg">
-                    Acheter des YCC
-                </a>
+                <a href="https://pancakeswap.finance/swap?outputCurrency=0x4E87b198A814a89E47405E4904f97d8A0e31BE95" target="_blank" class="btn-buy py-3 rounded-xl font-bold text-center shadow-lg">Acheter des YCC</a>
 
                 <div class="flex gap-2">
                     <button onclick="openSendModal()" class="flex-1 bg-white/10 hover:bg-white/20 py-3 rounded-xl font-bold border border-white/5 transition text-white text-sm">Envoyer</button>
@@ -84,28 +84,22 @@
         </div>
     </main>
 
-    <div id="receiveModal" class="modal"><div class="glass-card w-full max-w-md p-8 text-center relative"><button onclick="closeModals()" class="absolute top-4 right-4 text-gray-400">✕</button><h3 class="text-2xl font-bold mb-6 text-white text-xl">Recevoir YCC</h3><div id="userAddressDisplay" class="bg-black/50 p-4 rounded-xl border border-white/10 text-[10px] break-all font-mono mb-6 text-yellow-500">...</div><button id="copyBtn" onclick="copyAddress()" class="w-full btn-primary py-3 rounded-xl font-bold text-white">Copier l'adresse</button></div></div>
-
-    <div id="sendModal" class="modal"><div class="glass-card w-full max-w-md p-8 text-center relative"><button onclick="closeModals()" class="absolute top-4 right-4 text-gray-400">✕</button><h3 class="text-2xl font-bold mb-6 text-white text-xl">Envoyer YCC</h3><input type="text" id="recipientAddr" placeholder="Adresse destinataire 0x..." class="w-full p-3 mb-4 rounded-xl focus:outline-none"><input type="number" id="sendAmount" placeholder="Montant YCC" class="w-full p-3 mb-6 rounded-xl focus:outline-none"><button onclick="sendYcc()" class="w-full btn-primary py-3 rounded-xl font-bold text-white">Confirmer</button></div></div>
-
-    <div id="gasModal" class="modal">
-        <div class="glass-card w-full max-w-md p-8 text-left relative">
+    <div id="receiveModal" class="modal">
+        <div class="glass-card w-full max-w-md p-8 text-center relative border-yellow-500/30">
             <button onclick="closeModals()" class="absolute top-4 right-4 text-gray-400">✕</button>
-            <h3 class="text-2xl font-bold mb-6 text-yellow-500 text-center">Pourquoi du BNB ?</h3>
-            <div class="space-y-4 text-sm text-gray-300">
-                <p>Pour chaque envoi de YCC, le réseau (BSC) demande quelques centimes de frais de "gaz" payables en **BNB**.</p>
-                <div class="bg-white/5 p-4 rounded-xl border border-white/10">
-                    <p class="font-bold text-white mb-2">Comment en obtenir ?</p>
-                    <ul class="list-disc ml-5 space-y-2">
-                        <li>Directement dans **MetaMask** via le bouton "Acheter" (MoonPay/Transak).</li>
-                        <li>Sur un bureau de change comme **Binance** ou **Crypto.com**.</li>
-                        <li>Demandez à un membre de la communauté de vous en envoyer 1 ou 2 € !</li>
-                    </ul>
-                </div>
-                <p class="text-xs italic text-gray-500">Sans BNB, vos transactions resteront bloquées.</p>
-            </div>
+            <h3 class="text-2xl font-bold mb-4 text-white">Recevoir des <span class="text-yellow-500">YCC</span></h3>
+            
+            <div id="qrcode" class="mb-6 flex justify-center"></div>
+            
+            <p class="text-gray-400 text-xs mb-2">Votre adresse publique :</p>
+            <div id="userAddressDisplay" class="bg-black/50 p-4 rounded-xl border border-white/10 text-[10px] break-all font-mono mb-6 text-yellow-500 italic">...</div>
+            
+            <button id="copyBtn" onclick="copyAddress()" class="w-full btn-primary py-3 rounded-xl font-bold text-white">Copier l'adresse</button>
         </div>
     </div>
+
+    <div id="sendModal" class="modal"><div class="glass-card w-full max-w-md p-8 text-center relative"><button onclick="closeModals()" class="absolute top-4 right-4 text-gray-400">✕</button><h3 class="text-2xl font-bold mb-6 text-white text-xl">Envoyer YCC</h3><input type="text" id="recipientAddr" placeholder="0x..." class="w-full p-3 mb-4 rounded-xl focus:outline-none"><input type="number" id="sendAmount" placeholder="Montant YCC" class="w-full p-3 mb-6 rounded-xl focus:outline-none"><button onclick="sendYcc()" class="w-full btn-primary py-3 rounded-xl font-bold text-white">Confirmer</button></div></div>
+    <div id="gasModal" class="modal"><div class="glass-card w-full max-w-md p-8 text-left relative"><button onclick="closeModals()" class="absolute top-4 right-4 text-gray-400">✕</button><h3 class="text-xl font-bold mb-4 text-yellow-500">Pourquoi du BNB ?</h3><p class="text-sm text-gray-300">Chaque envoi demande des frais de gaz en **BNB**. Obtenez-en sur Binance ou via MetaMask.</p></div></div>
 
     <footer class="mt-16 text-gray-500 text-xs text-center pb-10">&copy; 2026 Yuanverse Ecosystem</footer>
 
@@ -114,9 +108,29 @@
         const minABI = [{"constant":true,"inputs":[{"name":"_owner","type":"address"}],"name":"balanceOf","outputs":[{"name":"balance","type":"uint256"}],"type":"function"},{"constant":false,"inputs":[{"name":"_to","type":"address"},{"name":"_value","type":"uint256"}],"name":"transfer","outputs":[{"name":"","type":"bool"}],"type":"function"}];
         let currentUserAddress = "";
         let provider, signer, contract;
+        let qrcodeInstance = null;
 
         function closeModals() { document.querySelectorAll('.modal').forEach(m => m.style.display = 'none'); }
-        function openReceiveModal() { if(!currentUserAddress) return alert("Connectez-vous !"); document.getElementById('userAddressDisplay').innerText = currentUserAddress; document.getElementById('receiveModal').style.display = 'flex'; }
+        
+        function openReceiveModal() { 
+            if(!currentUserAddress) return alert("Connectez-vous !"); 
+            document.getElementById('userAddressDisplay').innerText = currentUserAddress; 
+            
+            // Génération du QR Code
+            const qrContainer = document.getElementById("qrcode");
+            qrContainer.innerHTML = ""; // On vide l'ancien
+            new QRCode(qrContainer, {
+                text: currentUserAddress,
+                width: 180,
+                height: 180,
+                colorDark : "#000000",
+                colorLight : "#ffffff",
+                correctLevel : QRCode.CorrectLevel.H
+            });
+
+            document.getElementById('receiveModal').style.display = 'flex'; 
+        }
+
         function openSendModal() { if(!currentUserAddress) return alert("Connectez-vous !"); document.getElementById('sendModal').style.display = 'flex'; }
         function openGasModal() { document.getElementById('gasModal').style.display = 'flex'; }
 
@@ -141,7 +155,7 @@
             try {
                 const tx = await contract.transfer(to, ethers.utils.parseUnits(amount.toString(), 18));
                 await tx.wait(); alert("Succès !"); closeModals(); connect();
-            } catch (e) { alert("Erreur d'envoi. Vérifiez vos BNB."); }
+            } catch (e) { alert("Erreur."); }
         }
 
         async function addYccToWallet() {
