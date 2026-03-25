@@ -20,18 +20,15 @@
             border: 1px solid rgba(255, 255, 255, 0.12); border-radius: 24px;
         }
         input, select, textarea {
-            background: rgba(255, 255, 255, 0.05) !important;
+            background: rgba(255, 255, 255, 0.08) !important;
             border: 1px solid rgba(255, 255, 255, 0.1) !important;
             color: white !important;
         }
+        option { background: #111; color: white; } /* Pour que la liste soit lisible */
         input:focus, select:focus, textarea:focus {
-            border-color: #9333ea !important;
-            outline: none;
+            border-color: #9333ea !important; outline: none;
         }
-        .btn-purple {
-            background: linear-gradient(90deg, #9333ea, #db2777);
-            transition: all 0.3s ease;
-        }
+        .btn-purple { background: linear-gradient(90deg, #9333ea, #db2777); transition: all 0.3s ease; }
         .btn-purple:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(147, 51, 234, 0.3); }
     </style>
 </head>
@@ -40,13 +37,14 @@
     <nav class="flex justify-between items-center p-6 max-w-7xl mx-auto">
         <a href="index.html" class="text-gray-400 hover:text-white transition text-sm">← Retour au Wallet</a>
         <div class="text-2xl font-bold gradient-text tracking-tighter">YUANVERSE ARTISANS</div>
-        <div class="w-20"></div> </nav>
+        <div class="w-10"></div>
+    </nav>
 
     <main class="max-w-3xl mx-auto mt-10 p-6">
         <div class="text-center mb-12">
             <h1 class="text-4xl font-black mb-4 text-white uppercase tracking-tight">Devenez un <span class="gradient-text">Artisan Certifié</span></h1>
             <p class="text-gray-400 leading-relaxed text-sm px-10">
-                Propulsez votre savoir-faire dans l'économie de demain. Acceptez le **YCC**, supprimez les frais bancaires et rejoignez une communauté de créateurs passionnés.
+                Inscrivez votre atelier dans l'économie décentralisée. Acceptez le **YCC** et rejoignez l'élite du savoir-faire.
             </p>
         </div>
 
@@ -54,64 +52,68 @@
             <form id="artisanForm" class="space-y-6">
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
-                        <label class="block text-xs font-bold text-gray-400 uppercase mb-2">Nom de l'atelier / Entreprise</label>
-                        <input type="text" required placeholder="Ex: L'Atelier du Cuir" class="w-full p-3 rounded-xl">
+                        <label class="block text-xs font-bold text-gray-400 uppercase mb-2">Nom de l'atelier</label>
+                        <input type="text" required placeholder="Ex: Maison de la Forge" class="w-full p-3 rounded-xl">
                     </div>
                     <div>
-                        <label class="block text-xs font-bold text-gray-400 uppercase mb-2">Spécialité</label>
-                        <select class="w-full p-3 rounded-xl">
-                            <option>Menuiserie / Ébénisterie</option>
-                            <option>Bijouterie / Orfèvrerie</option>
-                            <option>Couture / Mode</option>
-                            <option>Gastronomie / Terroir</option>
-                            <option>Autre savoir-faire</option>
+                        <label class="block text-xs font-bold text-gray-400 uppercase mb-2">Domaine d'expertise</label>
+                        <select class="w-full p-3 rounded-xl cursor-pointer">
+                            <option value="" disabled selected>Choisir une spécialité...</option>
+                            <option>Menuiserie & Ébénisterie</option>
+                            <option>Bijouterie, Joaillerie & Orfèvrerie</option>
+                            <option>Couture, Mode & Design Textile</option>
+                            <option>Maroquinerie (Travail du cuir)</option>
+                            <option>Poterie, Céramique & Faïence</option>
+                            <option>Horlogerie d'art & Mécanique</option>
+                            <option>Forge, Coutellerie & Ferronnerie</option>
+                            <option>Lutherie (Instruments de musique)</option>
+                            <option>Soufflage de Verre & Vitrail</option>
+                            <option>Sculpture (Pierre, Bois ou Bronze)</option>
+                            <option>Gastronomie, Terroir & Vin</option>
+                            <option>Restauration d'œuvres d'art</option>
+                            <option>Reliure, Dorure & Papier d'art</option>
+                            <option>Tapisserie & Décoration d'intérieur</option>
+                            <option>Cosmétique & Parfumerie Artisanale</option>
+                            <option>Autre Savoir-Faire d'Excellence</option>
                         </select>
                     </div>
                 </div>
 
                 <div>
-                    <label class="block text-xs font-bold text-gray-400 uppercase mb-2">Lien Portfolio / Site Web / Instagram</label>
-                    <input type="url" placeholder="https://instagram.com/mon_atelier" class="w-full p-3 rounded-xl">
+                    <label class="block text-xs font-bold text-gray-400 uppercase mb-2">Lien vers vos créations (Instagram / Site)</label>
+                    <input type="url" placeholder="https://instagram.com/votre_atelier" class="w-full p-3 rounded-xl">
                 </div>
 
                 <div>
-                    <label class="block text-xs font-bold text-gray-400 uppercase mb-2">Votre adresse Wallet YCC (pour les paiements)</label>
-                    <input type="text" required placeholder="0x..." class="w-full p-3 rounded-xl font-mono text-xs">
+                    <label class="block text-xs font-bold text-gray-400 uppercase mb-2">Adresse Wallet YCC (Réception des fonds)</label>
+                    <input type="text" required placeholder="0x..." class="w-full p-3 rounded-xl font-mono text-[10px] md:text-xs">
                 </div>
 
                 <div>
-                    <label class="block text-xs font-bold text-gray-400 uppercase mb-2">Présentez-vous brièvement</label>
-                    <textarea rows="4" placeholder="Décrivez votre travail et vos créations..." class="w-full p-3 rounded-xl"></textarea>
+                    <label class="block text-xs font-bold text-gray-400 uppercase mb-2">Parlez-nous de votre métier</label>
+                    <textarea rows="4" placeholder="Qu'est-ce qui rend vos pièces uniques ?" class="w-full p-3 rounded-xl"></textarea>
                 </div>
 
                 <div class="pt-4">
-                    <button type="submit" class="w-full btn-purple py-4 rounded-xl font-bold text-white shadow-lg">
-                        ENVOYER MA CANDIDATURE
+                    <button type="submit" class="w-full btn-purple py-4 rounded-xl font-bold text-white shadow-lg text-sm uppercase tracking-widest">
+                        Soumettre ma candidature
                     </button>
                 </div>
             </form>
         </div>
 
-        <div class="mt-12 grid grid-cols-1 md:grid-cols-3 gap-6 text-center">
-            <div>
-                <div class="text-purple-500 font-bold mb-1">0%</div>
-                <p class="text-[10px] text-gray-500 uppercase">Frais de commission</p>
-            </div>
-            <div>
-                <div class="text-purple-500 font-bold mb-1">Direct</div>
-                <p class="text-[10px] text-gray-500 uppercase">Paiement P2P</p>
-            </div>
-            <div>
-                <div class="text-purple-500 font-bold mb-1">France</div>
-                <p class="text-[10px] text-gray-500 uppercase">Focus Savoir-faire</p>
-            </div>
+        <div class="mt-12 bg-purple-900/10 border border-purple-500/20 p-6 rounded-2xl text-center">
+            <h4 class="text-sm font-bold text-purple-400 mb-2">Pourquoi rejoindre le réseau ?</h4>
+            <p class="text-xs text-gray-500 italic">
+                En devenant Artisan Yuanverse, vous ne payez aucune commission sur vos ventes et vous accédez à une clientèle internationale passionnée par l'authenticité.
+            </p>
         </div>
     </main>
 
     <script>
         document.getElementById('artisanForm').onsubmit = function(e) {
             e.preventDefault();
-            alert("Merci ! Votre candidature a été envoyée. L'équipe Yuanverse reviendra vers vous sous 48h.");
+            alert("Candidature reçue ! Votre atelier sera examiné par le comité Yuanverse sous 48 heures.");
         }
     </script>
 
