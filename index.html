@@ -19,6 +19,11 @@
         .glass-card {
             background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(15px);
             border: 1px solid rgba(255, 255, 255, 0.12); border-radius: 24px;
+            transition: all 0.3s ease;
+        }
+        .glass-card:hover {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: rgba(212, 175, 55, 0.3);
         }
         .btn-primary { background: linear-gradient(90deg, #d4af37, #9333ea); transition: all 0.3s ease; cursor: pointer; }
     </style>
@@ -45,22 +50,30 @@
                 <button class="bg-white/10 hover:bg-white/20 px-10 py-3 rounded-xl font-bold border border-white/5 transition text-white">Recevoir</button>
             </div>
         </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-left">
+            <div class="glass-card p-8 border-l-4 border-purple-500">
+                <h3 class="text-xl font-bold mb-2 text-white">Espace Artisan</h3>
+                <p class="text-gray-400 text-sm leading-relaxed">
+                    Exposez vos créations et recevez des paiements en YCC sans frais bancaires. Une économie circulaire dédiée au savoir-faire français.
+                </p>
+            </div>
+            <div class="glass-card p-8 border-l-4 border-yellow-500">
+                <h3 class="text-xl font-bold mb-2 text-white">Staking & Rewards</h3>
+                <p class="text-gray-400 text-sm leading-relaxed">
+                    Faites fructifier vos YCC. En conservant vos jetons, vous participez à la stabilité de l'écosystème et recevez des récompenses trimestrielles.
+                </p>
+            </div>
+        </div>
     </main>
 
+    <footer class="mt-16 text-gray-500 text-xs text-center">
+        &copy; 2026 Yuanverse Ecosystem - Le futur de l'artisanat décentralisé.
+    </footer>
+
     <script>
-        // L'adresse de ton contrat YCC (confirmée)
         const tokenContractAddress = "0x4E87b198A814a89E47405E4904f97d8A0e31BE95"; 
-        
-        // ABI Standard JSON (très important pour éviter les CALL_EXCEPTION)
-        const minABI = [
-            {
-                "constant": true,
-                "inputs": [{"name": "_owner", "type": "address"}],
-                "name": "balanceOf",
-                "outputs": [{"name": "balance", "type": "uint256"}],
-                "type": "function"
-            }
-        ];
+        const minABI = [{"constant":true,"inputs":[{"name":"_owner","type":"address"}],"name":"balanceOf","outputs":[{"name":"balance","type":"uint256"}],"type":"function"}];
 
         const connectBtn = document.getElementById('connectWallet');
         const balanceDisplay = document.getElementById('balanceText');
@@ -69,32 +82,22 @@
             if (!window.ethereum) return alert("Installez MetaMask !");
 
             try {
-                // 1. Demander la connexion au compte
                 const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
                 const userAddress = accounts[0];
 
-                // 2. FORCER le changement de réseau sur la BNB Chain (ChainID 56 / 0x38)
                 try {
                     await window.ethereum.request({
                         method: 'wallet_switchEthereumChain',
                         params: [{ chainId: '0x38' }], 
                     });
-                } catch (switchError) {
-                    // Si le réseau n'est pas configuré dans MetaMask
-                    if (switchError.code === 4902) {
-                        alert("Veuillez ajouter la BNB Smart Chain à votre MetaMask.");
-                    }
-                }
+                } catch (e) { console.log("Déjà sur BSC"); }
 
-                // 3. Initialiser le provider APRÈS le switch réseau
                 const provider = new ethers.providers.Web3Provider(window.ethereum);
                 const contract = new ethers.Contract(tokenContractAddress, minABI, provider);
 
-                // 4. Lire le solde
                 const balance = await contract.balanceOf(userAddress);
                 const formatted = ethers.utils.formatUnits(balance, 18);
                 
-                // 5. Mise à jour de l'affichage
                 connectBtn.innerText = userAddress.substring(0,6) + "..." + userAddress.substring(userAddress.length - 4);
                 connectBtn.style.background = "#16a34a";
                 
@@ -102,8 +105,8 @@
                 balanceDisplay.innerHTML = `${finalValue} <span class="text-xl font-light text-yellow-500">YCC</span>`;
 
             } catch (err) {
-                console.error("Erreur détaillée :", err);
-                alert("Erreur : Assure-toi que ton MetaMask est bien sur la BNB SMART CHAIN.");
+                console.error(err);
+                alert("Erreur de connexion.");
             }
         }
 
