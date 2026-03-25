@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Yuanverse Wallet 2.0 - YCC</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ethers/5.7.2/ethers.umd.min.js"></script>
     <style>
         body {
             background-color: #050505;
@@ -56,7 +57,9 @@
             </div>
             
             <h2 class="text-xs uppercase tracking-[0.3em] text-gray-400 mb-4">Solde actuel de votre compte</h2>
-            <div class="text-6xl font-black mb-6 tracking-tighter">400,000,000 <span class="text-xl font-light text-yellow-500">YCC</span></div>
+            <div id="balanceText" class="text-6xl font-black mb-6 tracking-tighter">
+                0 <span class="text-xl font-light text-yellow-500">YCC</span>
+            </div>
             
             <div class="flex flex-wrap justify-center gap-4 w-full">
                 <button class="bg-white/10 hover:bg-white/20 px-10 py-3 rounded-xl font-bold transition-all border border-white/5">Envoyer</button>
@@ -84,19 +87,43 @@
     </footer>
 
     <script>
+        // CONFIGURATION DU CONTRAT
+        const contractAddress = "0xd190812c51a1abe1078f23dc6f5453830e59e550"; // <--- METS TON ADRESSE ICI
+        const tokenAbi = ["function balanceOf(address owner) view returns (uint256)"];
+
         const connectBtn = document.getElementById('connectWallet');
+        const balanceDisplay = document.getElementById('balanceText');
+
         connectBtn.addEventListener('click', async () => {
             if (window.ethereum) {
                 try {
+                    // 1. Demander connexion MetaMask
                     const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
-                    const addr = accounts[0];
-                    connectBtn.innerText = addr.substring(0,6) + "..." + addr.substring(addr.length - 4);
+                    const userAddress = accounts[0];
+                    
+                    // Mise à jour visuelle du bouton
+                    connectBtn.innerText = userAddress.substring(0,6) + "..." + userAddress.substring(userAddress.length - 4);
                     connectBtn.classList.replace('btn-primary', 'bg-green-600');
+
+                    // 2. Connexion à la Blockchain (BSC)
+                    const provider = new ethers.providers.Web3Provider(window.ethereum);
+                    const contract = new ethers.Contract(contractAddress, tokenAbi, provider);
+                    
+                    // 3. Récupération du solde
+                    const balance = await contract.balanceOf(userAddress);
+                    
+                    // 4. Formatage (on assume 18 décimales comme la majorité des tokens BSC)
+                    const formattedBalance = ethers.utils.formatUnits(balance, 18);
+                    
+                    // Mise à jour de l'affichage
+                    balanceDisplay.innerHTML = `${parseFloat(formattedBalance).toLocaleString()} <span class="text-xl font-light text-yellow-500">YCC</span>`;
+
                 } catch (error) {
-                    console.error("Erreur de connexion");
+                    console.error("Erreur de connexion ou de lecture :", error);
+                    alert("Une erreur est survenue. Assurez-vous d'être sur le réseau BNB Smart Chain.");
                 }
             } else {
-                alert("Installez MetaMask pour utiliser le Yuanverse Wallet !");
+                alert("Veuillez installer MetaMask pour utiliser le Yuanverse Wallet !");
             }
         });
     </script>
