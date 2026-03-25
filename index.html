@@ -27,64 +27,73 @@
 
     <nav class="flex justify-between items-center p-6 max-w-7xl mx-auto">
         <div class="text-3xl font-bold gradient-text tracking-tighter">YUANVERSE 2.0</div>
-        <button id="connectWallet" class="btn-primary px-7 py-2.5 rounded-full font-semibold shadow-lg">Connexion Wallet</button>
+        <button id="connectWallet" class="btn-primary px-7 py-2.5 rounded-full font-semibold shadow-lg text-white">Connexion Wallet</button>
     </nav>
 
     <main class="max-w-4xl mx-auto mt-8 p-6 text-center">
-        <h1 class="text-5xl font-extrabold mb-4 tracking-tight">Gérez vos <span class="gradient-text">YCC</span></h1>
+        <h1 class="text-5xl font-extrabold mb-4 tracking-tight text-white">Gérez vos <span class="gradient-text">YCC</span></h1>
         
         <div class="glass-card p-10 shadow-2xl mb-10 relative flex flex-col items-center">
             <div class="mb-6 w-24 h-24 flex items-center justify-center">
                 <img src="./assets/logo_yuanverse_v2.png" alt="YCC Logo" class="w-full h-full object-contain">
             </div>
-            <h2 class="text-xs uppercase tracking-[0.3em] text-gray-400 mb-4">Solde actuel</h2>
-            <div id="balanceText" class="text-6xl font-black mb-6 tracking-tighter">0 <span class="text-xl font-light text-yellow-500">YCC</span></div>
+            <h2 class="text-xs uppercase tracking-[0.3em] text-gray-400 mb-4">Solde actuel de votre compte</h2>
+            <div id="balanceText" class="text-6xl font-black mb-6 tracking-tighter text-white">0 <span class="text-xl font-light text-yellow-500">YCC</span></div>
             
             <div class="flex flex-wrap justify-center gap-4 w-full">
-                <button class="bg-white/10 px-10 py-3 rounded-xl font-bold border border-white/5">Envoyer</button>
-                <button class="bg-white/10 px-10 py-3 rounded-xl font-bold border border-white/5">Recevoir</button>
+                <button class="bg-white/10 hover:bg-white/20 px-10 py-3 rounded-xl font-bold border border-white/5 transition text-white">Envoyer</button>
+                <button class="bg-white/10 hover:bg-white/20 px-10 py-3 rounded-xl font-bold border border-white/5 transition text-white">Recevoir</button>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-left">
+            <div class="glass-card p-8 border-l-4 border-purple-500">
+                <h3 class="text-xl font-bold mb-2 text-white">Espace Artisan</h3>
+                <p class="text-gray-400 text-sm">Vendez vos créations en YCC.</p>
+            </div>
+            <div class="glass-card p-8 border-l-4 border-yellow-500">
+                <h3 class="text-xl font-bold mb-2 text-white">Staking</h3>
+                <p class="text-gray-400 text-sm">Gagnez des récompenses.</p>
             </div>
         </div>
     </main>
 
     <script>
         const contractAddress = "0xd190812c51a1abe1078f23dc6f5453830e59e550";
-        // ABI minimale avec une seule fonction
-        const minABI = [{"constant":true,"inputs":[{"name":"_owner","type":"address"}],"name":"balanceOf","outputs":[{"name":"balance","type":"uint256"}],"type":"function"}];
+        const minABI = [{"inputs":[{"name":"account","type":"address"}],"name":"balanceOf","outputs":[{"name":"","type":"uint256"}],"stateMutability":"view","type":"function"}];
 
         const connectBtn = document.getElementById('connectWallet');
         const balanceDisplay = document.getElementById('balanceText');
 
-        async function updateBalance() {
+        connectBtn.addEventListener('click', async () => {
             if (!window.ethereum) return alert("Installez MetaMask !");
 
             try {
-                const provider = new ethers.providers.Web3Provider(window.ethereum, "any");
-                const accounts = await provider.send("eth_requestAccounts", []);
+                // 1. Connexion pure au compte
+                const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
                 const userAddress = accounts[0];
 
                 connectBtn.innerText = userAddress.substring(0,6) + "..." + userAddress.substring(userAddress.length - 4);
-                
-                // On crée l'objet contrat
+                connectBtn.style.background = "#16a34a";
+
+                // 2. Création du provider sans vérification de réseau
+                const provider = new ethers.providers.Web3Provider(window.ethereum);
                 const contract = new ethers.Contract(contractAddress, minABI, provider);
                 
-                // On récupère le solde
+                // 3. Appel du solde
                 const balance = await contract.balanceOf(userAddress);
                 
-                // Conversion
+                // 4. Conversion et affichage
                 const formatted = ethers.utils.formatUnits(balance, 18);
-                const finalValue = parseFloat(formatted).toLocaleString('fr-FR');
+                const finalValue = parseFloat(formatted).toLocaleString('fr-FR', { maximumFractionDigits: 0 });
 
                 balanceDisplay.innerHTML = `${finalValue} <span class="text-xl font-light text-yellow-500">YCC</span>`;
-                connectBtn.classList.replace('btn-primary', 'bg-green-600');
 
             } catch (err) {
-                console.error(err);
-                alert("Erreur : Assurez-vous d'être sur la BNB Chain dans MetaMask.");
+                console.error("Erreur détaillée :", err);
+                alert("Erreur de lecture. Vérifie que tu es bien sur la BNB Chain (icône jaune) dans MetaMask.");
             }
-        }
-
-        connectBtn.addEventListener('click', updateBalance);
+        });
     </script>
 </body>
 </html>
