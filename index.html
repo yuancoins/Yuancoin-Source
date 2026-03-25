@@ -60,61 +60,47 @@
                 <button class="bg-white/10 hover:bg-white/20 px-10 py-3 rounded-xl font-bold border border-white/5 transition text-white">Recevoir</button>
             </div>
         </div>
-
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-left">
-            <div class="glass-card p-8 border-l-4 border-purple-500">
-                <h3 class="text-xl font-bold mb-2 text-white">Espace Artisan</h3>
-                <p class="text-gray-400 text-sm">Prêt pour le commerce décentralisé.</p>
-            </div>
-            <div class="glass-card p-8 border-l-4 border-yellow-500">
-                <h3 class="text-xl font-bold mb-2 text-white">Staking</h3>
-                <p class="text-gray-400 text-sm">Gagnez des récompenses en YCC.</p>
-            </div>
-        </div>
     </main>
-
-    <footer class="mt-10 text-gray-500 text-xs text-center">
-        &copy; 2026 Yuanverse Ecosystem - Tous droits réservés
-    </footer>
 
     <script>
         const contractAddress = "0xd190812c51a1abe1078f23dc6f5453830e59e550";
         const connectBtn = document.getElementById('connectWallet');
         const balanceDisplay = document.getElementById('balanceText');
 
-        // On utilise un serveur RPC public de secours (ANKR) pour éviter les erreurs de MetaMask
-        const backupProvider = new ethers.providers.JsonRpcProvider("https://rpc.ankr.com/bsc");
-
         async function updateBalance() {
-            if (!window.ethereum) {
+            if (typeof window.ethereum === 'undefined') {
                 alert("Veuillez installer MetaMask !");
                 return;
             }
 
             try {
-                // 1. Demander l'adresse au Wallet
+                // 1. On demande l'accès aux comptes d'abord
                 const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
                 const userAddress = accounts[0];
+
+                // 2. On attend un tout petit peu que le provider s'initialise
+                const provider = new ethers.providers.Web3Provider(window.ethereum, "any");
+                
+                // 3. On vérifie qu'on est sur le bon ID de chaîne (56 = BSC)
+                const network = await provider.getNetwork();
+                if (network.chainId !== 56) {
+                    alert("Changez de réseau pour BNB Smart Chain dans MetaMask.");
+                    return;
+                }
 
                 connectBtn.innerText = userAddress.substring(0,6) + "..." + userAddress.substring(userAddress.length - 4);
                 connectBtn.style.background = "#16a34a";
 
-                // 2. Chercher le solde via le serveur ANKR (plus stable que MetaMask)
+                // 4. Appel direct pour le solde (plus fiable)
                 const data = "0x70a08231" + ethers.utils.hexZeroPad(userAddress, 32).substring(2);
-                
-                const result = await backupProvider.call({
+                const result = await provider.send("eth_call", [{
                     to: contractAddress,
                     data: data
-                });
-
-                if (result === "0x") {
-                    throw new Error("Contrat introuvable sur le réseau principal.");
-                }
+                }, "latest"]);
 
                 const balanceBN = ethers.BigNumber.from(result);
                 const formattedBalance = ethers.utils.formatUnits(balanceBN, 18);
                 
-                // Affichage propre sans décimales si le chiffre est gros
                 const finalValue = parseFloat(formattedBalance).toLocaleString('fr-FR', { 
                     maximumFractionDigits: 0 
                 });
@@ -122,8 +108,8 @@
                 balanceDisplay.innerHTML = `${finalValue} <span class="text-xl font-light text-yellow-500">YCC</span>`;
 
             } catch (err) {
-                console.error("Erreur de lecture :", err);
-                alert("Erreur technique : " + err.message);
+                console.error(err);
+                alert("Erreur : " + err.message);
             }
         }
 
