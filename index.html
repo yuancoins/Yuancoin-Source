@@ -19,12 +19,9 @@
         .glass-card {
             background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(15px);
             border: 1px solid rgba(255, 255, 255, 0.12); border-radius: 24px;
-            transition: all 0.3s ease;
         }
-        .glass-card:hover { border-color: rgba(212, 175, 55, 0.3); }
         .btn-primary { background: linear-gradient(90deg, #d4af37, #9333ea); transition: all 0.3s ease; }
         .btn-buy { background: linear-gradient(90deg, #f3ba2f, #d4af37); color: #000; transition: all 0.3s ease; }
-        .btn-buy:hover { transform: scale(1.02); box-shadow: 0 0 20px rgba(243, 186, 47, 0.3); }
         .btn-telegram { background: #0088cc; }
         .btn-outline { border: 1px solid rgba(255, 255, 255, 0.15); background: rgba(255, 255, 255, 0.03); }
         
@@ -63,10 +60,12 @@
                     <button onclick="openSendModal()" class="flex-1 bg-white/10 hover:bg-white/20 py-3 rounded-xl font-bold border border-white/5 transition text-white text-sm">Envoyer</button>
                     <button onclick="openReceiveModal()" class="flex-1 bg-white/10 hover:bg-white/20 py-3 rounded-xl font-bold border border-white/5 transition text-white text-sm">Recevoir</button>
                 </div>
+
+                <button onclick="openGasModal()" class="text-[10px] text-gray-500 hover:text-yellow-500 transition underline underline-offset-4">Besoin de BNB pour les frais ?</button>
                 
                 <a href="https://t.me/teamyuancoin" target="_blank" class="btn-telegram flex items-center justify-center gap-2 py-3 rounded-xl font-bold text-white shadow-lg text-sm">Communauté Telegram</a>
 
-                <button onclick="addYccToWallet()" class="btn-outline flex items-center justify-center gap-2 py-3 rounded-xl font-bold text-white text-xs">
+                <button onclick="addYccToWallet()" class="btn-outline flex items-center justify-center gap-2 py-3 rounded-xl font-bold text-white text-xs mt-2">
                     <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/36/MetaMask_Fox.svg/960px-MetaMask_Fox.svg.png" class="w-4 h-4" alt="MetaMask">
                     Ajouter YCC à MetaMask
                 </button>
@@ -75,32 +74,51 @@
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-left">
             <div class="glass-card p-8 border-l-4 border-purple-500">
-                <h3 class="text-xl font-bold mb-2 text-white text-lg">Espace Artisan</h3>
-                <p class="text-gray-400 text-sm">Utilisez vos YCC pour soutenir le savoir-faire français.</p>
+                <h3 class="text-xl font-bold mb-2 text-white">Espace Artisan</h3>
+                <p class="text-gray-400 text-sm">Soutenez le savoir-faire avec vos YCC.</p>
             </div>
             <div class="glass-card p-8 border-l-4 border-yellow-500">
-                <h3 class="text-xl font-bold mb-2 text-white text-lg">Staking & Rewards</h3>
-                <p class="text-gray-400 text-sm">Gagnez des intérêts trimestriels sur votre épargne.</p>
+                <h3 class="text-xl font-bold mb-2 text-white">Staking & Rewards</h3>
+                <p class="text-gray-400 text-sm">Gagnez des récompenses sur votre épargne.</p>
             </div>
         </div>
     </main>
 
     <div id="receiveModal" class="modal"><div class="glass-card w-full max-w-md p-8 text-center relative"><button onclick="closeModals()" class="absolute top-4 right-4 text-gray-400">✕</button><h3 class="text-2xl font-bold mb-6 text-white text-xl">Recevoir YCC</h3><div id="userAddressDisplay" class="bg-black/50 p-4 rounded-xl border border-white/10 text-[10px] break-all font-mono mb-6 text-yellow-500">...</div><button id="copyBtn" onclick="copyAddress()" class="w-full btn-primary py-3 rounded-xl font-bold text-white">Copier l'adresse</button></div></div>
+
     <div id="sendModal" class="modal"><div class="glass-card w-full max-w-md p-8 text-center relative"><button onclick="closeModals()" class="absolute top-4 right-4 text-gray-400">✕</button><h3 class="text-2xl font-bold mb-6 text-white text-xl">Envoyer YCC</h3><input type="text" id="recipientAddr" placeholder="Adresse destinataire 0x..." class="w-full p-3 mb-4 rounded-xl focus:outline-none"><input type="number" id="sendAmount" placeholder="Montant YCC" class="w-full p-3 mb-6 rounded-xl focus:outline-none"><button onclick="sendYcc()" class="w-full btn-primary py-3 rounded-xl font-bold text-white">Confirmer</button></div></div>
+
+    <div id="gasModal" class="modal">
+        <div class="glass-card w-full max-w-md p-8 text-left relative">
+            <button onclick="closeModals()" class="absolute top-4 right-4 text-gray-400">✕</button>
+            <h3 class="text-2xl font-bold mb-6 text-yellow-500 text-center">Pourquoi du BNB ?</h3>
+            <div class="space-y-4 text-sm text-gray-300">
+                <p>Pour chaque envoi de YCC, le réseau (BSC) demande quelques centimes de frais de "gaz" payables en **BNB**.</p>
+                <div class="bg-white/5 p-4 rounded-xl border border-white/10">
+                    <p class="font-bold text-white mb-2">Comment en obtenir ?</p>
+                    <ul class="list-disc ml-5 space-y-2">
+                        <li>Directement dans **MetaMask** via le bouton "Acheter" (MoonPay/Transak).</li>
+                        <li>Sur un bureau de change comme **Binance** ou **Crypto.com**.</li>
+                        <li>Demandez à un membre de la communauté de vous en envoyer 1 ou 2 € !</li>
+                    </ul>
+                </div>
+                <p class="text-xs italic text-gray-500">Sans BNB, vos transactions resteront bloquées.</p>
+            </div>
+        </div>
+    </div>
+
+    <footer class="mt-16 text-gray-500 text-xs text-center pb-10">&copy; 2026 Yuanverse Ecosystem</footer>
 
     <script>
         const tokenContractAddress = "0x4E87b198A814a89E47405E4904f97d8A0e31BE95";
-        const minABI = [
-            {"constant":true,"inputs":[{"name":"_owner","type":"address"}],"name":"balanceOf","outputs":[{"name":"balance","type":"uint256"}],"type":"function"},
-            {"constant":false,"inputs":[{"name":"_to","type":"address"},{"name":"_value","type":"uint256"}],"name":"transfer","outputs":[{"name":"","type":"bool"}],"type":"function"}
-        ];
-
+        const minABI = [{"constant":true,"inputs":[{"name":"_owner","type":"address"}],"name":"balanceOf","outputs":[{"name":"balance","type":"uint256"}],"type":"function"},{"constant":false,"inputs":[{"name":"_to","type":"address"},{"name":"_value","type":"uint256"}],"name":"transfer","outputs":[{"name":"","type":"bool"}],"type":"function"}];
         let currentUserAddress = "";
         let provider, signer, contract;
 
         function closeModals() { document.querySelectorAll('.modal').forEach(m => m.style.display = 'none'); }
         function openReceiveModal() { if(!currentUserAddress) return alert("Connectez-vous !"); document.getElementById('userAddressDisplay').innerText = currentUserAddress; document.getElementById('receiveModal').style.display = 'flex'; }
         function openSendModal() { if(!currentUserAddress) return alert("Connectez-vous !"); document.getElementById('sendModal').style.display = 'flex'; }
+        function openGasModal() { document.getElementById('gasModal').style.display = 'flex'; }
 
         async function connect() {
             if (!window.ethereum) return alert("MetaMask non détecté !");
@@ -109,21 +127,13 @@
             provider = new ethers.providers.Web3Provider(window.ethereum);
             signer = provider.getSigner();
             contract = new ethers.Contract(tokenContractAddress, minABI, signer);
-            
-            const balance = await contract.balanceOf(currentUserAddress);
-            const formatted = ethers.utils.formatUnits(balance, 18);
-            
             document.getElementById('connectWallet').innerText = currentUserAddress.substring(0,6)+"..."+currentUserAddress.substring(38);
             document.getElementById('disconnectBtn').style.display = "block";
-            document.getElementById('balanceText').innerHTML = `${parseFloat(formatted).toLocaleString('fr-FR')} <span class="text-xl font-light text-yellow-500">YCC</span>`;
+            const balance = await contract.balanceOf(currentUserAddress);
+            document.getElementById('balanceText').innerHTML = `${parseFloat(ethers.utils.formatUnits(balance, 18)).toLocaleString('fr-FR')} <span class="text-xl font-light text-yellow-500">YCC</span>`;
         }
 
-        function disconnect() {
-            currentUserAddress = "";
-            document.getElementById('connectWallet').innerText = "Connexion Wallet";
-            document.getElementById('disconnectBtn').style.display = "none";
-            document.getElementById('balanceText').innerHTML = `0 <span class="text-xl font-light text-yellow-500">YCC</span>`;
-        }
+        function disconnect() { currentUserAddress = ""; document.getElementById('connectWallet').innerText = "Connexion Wallet"; document.getElementById('disconnectBtn').style.display = "none"; document.getElementById('balanceText').innerHTML = `0 <span class="text-xl font-light text-yellow-500">YCC</span>`; }
 
         async function sendYcc() {
             const to = document.getElementById('recipientAddr').value;
@@ -131,21 +141,15 @@
             try {
                 const tx = await contract.transfer(to, ethers.utils.parseUnits(amount.toString(), 18));
                 await tx.wait(); alert("Succès !"); closeModals(); connect();
-            } catch (e) { alert("Erreur d'envoi."); }
+            } catch (e) { alert("Erreur d'envoi. Vérifiez vos BNB."); }
         }
 
         async function addYccToWallet() {
             const logoUrl = `${window.location.origin}/assets/logo_yuanverse_v2.png`;
-            try {
-                await window.ethereum.request({ method: 'wallet_watchAsset', params: { type: 'ERC20', options: { address: tokenContractAddress, symbol: 'YCC', decimals: 18, image: logoUrl } } });
-            } catch (e) {}
+            try { await window.ethereum.request({ method: 'wallet_watchAsset', params: { type: 'ERC20', options: { address: tokenContractAddress, symbol: 'YCC', decimals: 18, image: logoUrl } } }); } catch (e) {}
         }
 
-        function copyAddress() {
-            navigator.clipboard.writeText(currentUserAddress);
-            document.getElementById('copyBtn').innerText = "Copié !";
-            setTimeout(() => document.getElementById('copyBtn').innerText = "Copier l'adresse", 2000);
-        }
+        function copyAddress() { navigator.clipboard.writeText(currentUserAddress); document.getElementById('copyBtn').innerText = "Copié !"; setTimeout(() => document.getElementById('copyBtn').innerText = "Copier l'adresse", 2000); }
 
         document.getElementById('connectWallet').onclick = connect;
     </script>
