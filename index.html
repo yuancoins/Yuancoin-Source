@@ -20,7 +20,7 @@
             background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(15px);
             border: 1px solid rgba(255, 255, 255, 0.12); border-radius: 24px;
         }
-        .btn-primary { background: linear-gradient(90deg, #d4af37, #9333ea); transition: all 0.3s ease; }
+        .btn-primary { background: linear-gradient(90deg, #d4af37, #9333ea); transition: all 0.3s ease; cursor: pointer; }
     </style>
 </head>
 <body class="min-h-screen pb-20">
@@ -48,44 +48,49 @@
     </main>
 
     <script>
-        // Ton adresse de contrat YCC
         const contractAddress = "0xd190812c51a1abe1078f23dc6f5453830e59e550";
-        // ABI simplifiée pour lire le solde
         const minABI = [{"inputs":[{"name":"account","type":"address"}],"name":"balanceOf","outputs":[{"name":"","type":"uint256"}],"stateMutability":"view","type":"function"}];
 
         const connectBtn = document.getElementById('connectWallet');
         const balanceDisplay = document.getElementById('balanceText');
 
-        async function init() {
-            if (!window.ethereum) {
-                alert("Installez MetaMask pour voir vos YCC !");
+        // FONCTION DE CONNEXION SANS BARRIÈRE
+        async function startConnection() {
+            // Vérification si MetaMask est présent
+            const provider_source = window.ethereum;
+            if (!provider_source) {
+                alert("MetaMask introuvable. Installez l'extension !");
                 return;
             }
 
             try {
-                // 1. On demande à MetaMask de se connecter
-                const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+                // ÉTAPE 1 : Appeler MetaMask DIRECTEMENT (cela DOIT ouvrir la fenêtre)
+                const accounts = await provider_source.request({ method: 'eth_requestAccounts' });
                 const userAddress = accounts[0];
 
-                // 2. On force le switch sur la BNB Chain (0x38 = 56)
-                try {
-                    await window.ethereum.request({
-                        method: 'wallet_switchEthereumChain',
-                        params: [{ chainId: '0x38' }],
-                    });
-                } catch (e) {
-                    console.log("Déjà sur le bon réseau ou erreur de switch");
+                // ÉTAPE 2 : Une fois connecté, on initialise ethers
+                const provider = new ethers.providers.Web3Provider(provider_source);
+                
+                // ÉTAPE 3 : Vérifier le réseau (BSC = 56)
+                const { chainId } = await provider.getNetwork();
+                if (chainId !== 56) {
+                    try {
+                        await provider_source.request({
+                            method: 'wallet_switchEthereumChain',
+                            params: [{ chainId: '0x38' }],
+                        });
+                    } catch (e) {
+                        alert("Basculez sur le réseau BNB Smart Chain dans MetaMask.");
+                        return;
+                    }
                 }
 
-                // 3. Connexion à la blockchain
-                const provider = new ethers.providers.Web3Provider(window.ethereum);
+                // ÉTAPE 4 : Lire le solde
                 const contract = new ethers.Contract(contractAddress, minABI, provider);
-
-                // 4. Lecture du solde
                 const balance = await contract.balanceOf(userAddress);
                 const formatted = ethers.utils.formatUnits(balance, 18);
                 
-                // 5. Mise à jour de l'affichage
+                // MISE À JOUR UI
                 connectBtn.innerText = userAddress.substring(0,6) + "..." + userAddress.substring(userAddress.length - 4);
                 connectBtn.style.background = "#16a34a";
                 
@@ -94,11 +99,11 @@
 
             } catch (err) {
                 console.error(err);
-                alert("Connexion échouée : " + err.message);
+                alert("Erreur de connexion : " + err.message);
             }
         }
 
-        connectBtn.addEventListener('click', init);
+        connectBtn.onclick = startConnection;
     </script>
 </body>
 </html>
