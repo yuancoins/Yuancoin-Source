@@ -11,6 +11,7 @@
             background-color: #050505;
             color: white;
             font-family: 'Inter', sans-serif;
+            /* Utilisation de ta bannière en fond avec un voile sombre pour la lisibilité */
             background-image: linear-gradient(rgba(5, 5, 5, 0.85), rgba(5, 5, 5, 0.85)), url('Yuanverse_banner.jpg');
             background-size: cover;
             background-position: center;
@@ -47,7 +48,7 @@
     </nav>
 
     <main class="max-w-4xl mx-auto mt-8 p-6 text-center">
-        <h1 class="text-5xl font-extrabold mb-4 tracking-tight">Gérez vos <span class="gradient-text">YCC</span></h1>
+        <h1 class="text-5xl font-extrabold mb-4 tracking-tight text-white">Gérez vos <span class="gradient-text">YCC</span></h1>
         <p class="text-gray-300 mb-10 text-lg max-w-2xl mx-auto">L'écosystème décentralisé nouvelle génération dédié aux artisans français.</p>
 
         <div class="glass-card p-10 shadow-2xl mb-10 relative flex flex-col items-center">
@@ -57,6 +58,7 @@
             </div>
             
             <h2 class="text-xs uppercase tracking-[0.3em] text-gray-400 mb-4">Solde actuel de votre compte</h2>
+            
             <div id="balanceText" class="text-6xl font-black mb-6 tracking-tighter">
                 0 <span class="text-xl font-light text-yellow-500">YCC</span>
             </div>
@@ -79,7 +81,6 @@
                 <p class="text-gray-400 text-sm leading-relaxed">Faites fructifier vos tokens et soutenez l'artisanat français.</p>
             </div>
         </div>
-
     </main>
 
     <footer class="mt-10 text-gray-500 text-xs text-center">
@@ -87,8 +88,8 @@
     </footer>
 
     <script>
-        // CONFIGURATION DU CONTRAT
-        const contractAddress = "0xd190812c51a1abe1078f23dc6f5453830e59e550"; // <--- METS TON ADRESSE ICI
+        // CONFIGURATION DU CONTRAT YCC
+        const contractAddress = "0xd190812c51a1abe1078f23dc6f5453830e59e550"; 
         const tokenAbi = ["function balanceOf(address owner) view returns (uint256)"];
 
         const connectBtn = document.getElementById('connectWallet');
@@ -97,33 +98,33 @@
         connectBtn.addEventListener('click', async () => {
             if (window.ethereum) {
                 try {
-                    // 1. Demander connexion MetaMask
+                    // 1. Demander la connexion au wallet (MetaMask)
                     const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
                     const userAddress = accounts[0];
                     
-                    // Mise à jour visuelle du bouton
+                    // Mise à jour visuelle du bouton avec l'adresse courte
                     connectBtn.innerText = userAddress.substring(0,6) + "..." + userAddress.substring(userAddress.length - 4);
                     connectBtn.classList.replace('btn-primary', 'bg-green-600');
 
-                    // 2. Connexion à la Blockchain (BSC)
+                    // 2. Connexion à la BNB Smart Chain
                     const provider = new ethers.providers.Web3Provider(window.ethereum);
                     const contract = new ethers.Contract(contractAddress, tokenAbi, provider);
                     
-                    // 3. Récupération du solde
+                    // 3. Récupération du solde réel du contrat
                     const balance = await contract.balanceOf(userAddress);
                     
-                    // 4. Formatage (on assume 18 décimales comme la majorité des tokens BSC)
+                    // 4. Formatage (on divise par 10^18 pour les décimales standards)
                     const formattedBalance = ethers.utils.formatUnits(balance, 18);
                     
-                    // Mise à jour de l'affichage
+                    // 5. Mise à jour de l'affichage avec ton chiffre réel
                     balanceDisplay.innerHTML = `${parseFloat(formattedBalance).toLocaleString()} <span class="text-xl font-light text-yellow-500">YCC</span>`;
 
                 } catch (error) {
-                    console.error("Erreur de connexion ou de lecture :", error);
-                    alert("Une erreur est survenue. Assurez-vous d'être sur le réseau BNB Smart Chain.");
+                    console.error("Erreur de connexion :", error);
+                    alert("Assurez-vous d'être sur le réseau BNB Smart Chain dans MetaMask.");
                 }
             } else {
-                alert("Veuillez installer MetaMask pour utiliser le Yuanverse Wallet !");
+                alert("Installez MetaMask pour utiliser le Yuanverse Wallet !");
             }
         });
     </script>
