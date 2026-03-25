@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Espace Artisan - Yuanverse</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            background-color: #050505; color: white; font-family: 'Inter', sans-serif;
+            background-image: linear-gradient(rgba(5,5,5,0.9), rgba(5,5,5,0.9)), url('Yuanverse_banner.jpg');
+            background-size: cover; background-position: center; background-attachment: fixed;
+        }
+        .gradient-text {
+            background: linear-gradient(90deg, #9333ea, #db2777);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.12); border-radius: 24px;
+        }
+        input, select, textarea {
+            background: rgba(255, 255, 255, 0.05) !important;
+            border: 1px solid rgba(255, 255, 255, 0.1) !important;
+            color: white !important;
+        }
+        input:focus, select:focus, textarea:focus {
+            border-color: #9333ea !important;
+            outline: none;
+        }
+        .btn-purple {
+            background: linear-gradient(90deg, #9333ea, #db2777);
+            transition: all 0.3s ease;
+        }
+        .btn-purple:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(147, 51, 234, 0.3); }
+    </style>
+</head>
+<body class="min-h-screen pb-20">
+
+    <nav class="flex justify-between items-center p-6 max-w-7xl mx-auto">
+        <a href="index.html" class="text-gray-400 hover:text-white transition text-sm">← Retour au Wallet</a>
+        <div class="text-2xl font-bold gradient-text tracking-tighter">YUANVERSE ARTISANS</div>
+        <div class="w-20"></div> </nav>
+
+    <main class="max-w-3xl mx-auto mt-10 p-6">
+        <div class="text-center mb-12">
+            <h1 class="text-4xl font-black mb-4 text-white uppercase tracking-tight">Devenez un <span class="gradient-text">Artisan Certifié</span></h1>
+            <p class="text-gray-400 leading-relaxed text-sm px-10">
+                Propulsez votre savoir-faire dans l'économie de demain. Acceptez le **YCC**, supprimez les frais bancaires et rejoignez une communauté de créateurs passionnés.
+            </p>
+        </div>
+
+        <div class="glass-card p-8 md:p-12">
+            <form id="artisanForm" class="space-y-6">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <label class="block text-xs font-bold text-gray-400 uppercase mb-2">Nom de l'atelier / Entreprise</label>
+                        <input type="text" required placeholder="Ex: L'Atelier du Cuir" class="w-full p-3 rounded-xl">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-gray-400 uppercase mb-2">Spécialité</label>
+                        <select class="w-full p-3 rounded-xl">
+                            <option>Menuiserie / Ébénisterie</option>
+                            <option>Bijouterie / Orfèvrerie</option>
+                            <option>Couture / Mode</option>
+                            <option>Gastronomie / Terroir</option>
+                            <option>Autre savoir-faire</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-xs font-bold text-gray-400 uppercase mb-2">Lien Portfolio / Site Web / Instagram</label>
+                    <input type="url" placeholder="https://instagram.com/mon_atelier" class="w-full p-3 rounded-xl">
+                </div>
+
+                <div>
+                    <label class="block text-xs font-bold text-gray-400 uppercase mb-2">Votre adresse Wallet YCC (pour les paiements)</label>
+                    <input type="text" required placeholder="0x..." class="w-full p-3 rounded-xl font-mono text-xs">
+                </div>
+
+                <div>
+                    <label class="block text-xs font-bold text-gray-400 uppercase mb-2">Présentez-vous brièvement</label>
+                    <textarea rows="4" placeholder="Décrivez votre travail et vos créations..." class="w-full p-3 rounded-xl"></textarea>
+                </div>
+
+                <div class="pt-4">
+                    <button type="submit" class="w-full btn-purple py-4 rounded-xl font-bold text-white shadow-lg">
+                        ENVOYER MA CANDIDATURE
+                    </button>
+                </div>
+            </form>
+        </div>
+
+        <div class="mt-12 grid grid-cols-1 md:grid-cols-3 gap-6 text-center">
+            <div>
+                <div class="text-purple-500 font-bold mb-1">0%</div>
+                <p class="text-[10px] text-gray-500 uppercase">Frais de commission</p>
+            </div>
+            <div>
+                <div class="text-purple-500 font-bold mb-1">Direct</div>
+                <p class="text-[10px] text-gray-500 uppercase">Paiement P2P</p>
+            </div>
+            <div>
+                <div class="text-purple-500 font-bold mb-1">France</div>
+                <p class="text-[10px] text-gray-500 uppercase">Focus Savoir-faire</p>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        document.getElementById('artisanForm').onsubmit = function(e) {
+            e.preventDefault();
+            alert("Merci ! Votre candidature a été envoyée. L'équipe Yuanverse reviendra vers vous sous 48h.");
+        }
+    </script>
+
+</body>
+</html>
