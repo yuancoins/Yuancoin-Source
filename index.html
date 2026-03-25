@@ -37,7 +37,7 @@
             <div class="mb-6 w-24 h-24 flex items-center justify-center">
                 <img src="./assets/logo_yuanverse_v2.png" alt="YCC Logo" class="w-full h-full object-contain">
             </div>
-            <h2 class="text-xs uppercase tracking-[0.3em] text-gray-400 mb-4 text-center">Solde actuel de votre compte</h2>
+            <h2 class="text-xs uppercase tracking-[0.3em] text-gray-400 mb-4">Solde actuel de votre compte</h2>
             <div id="balanceText" class="text-6xl font-black mb-6 tracking-tighter text-white">0 <span class="text-xl font-light text-yellow-500">YCC</span></div>
             
             <div class="flex flex-wrap justify-center gap-4 w-full">
@@ -54,43 +54,23 @@
         const connectBtn = document.getElementById('connectWallet');
         const balanceDisplay = document.getElementById('balanceText');
 
-        // FONCTION DE CONNEXION SANS BARRIÈRE
-        async function startConnection() {
-            // Vérification si MetaMask est présent
-            const provider_source = window.ethereum;
-            if (!provider_source) {
-                alert("MetaMask introuvable. Installez l'extension !");
-                return;
-            }
+        async function connectAndRead() {
+            if (!window.ethereum) return alert("Installe MetaMask !");
 
             try {
-                // ÉTAPE 1 : Appeler MetaMask DIRECTEMENT (cela DOIT ouvrir la fenêtre)
-                const accounts = await provider_source.request({ method: 'eth_requestAccounts' });
+                // 1. Ouvrir MetaMask
+                const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
                 const userAddress = accounts[0];
 
-                // ÉTAPE 2 : Une fois connecté, on initialise ethers
-                const provider = new ethers.providers.Web3Provider(provider_source);
-                
-                // ÉTAPE 3 : Vérifier le réseau (BSC = 56)
-                const { chainId } = await provider.getNetwork();
-                if (chainId !== 56) {
-                    try {
-                        await provider_source.request({
-                            method: 'wallet_switchEthereumChain',
-                            params: [{ chainId: '0x38' }],
-                        });
-                    } catch (e) {
-                        alert("Basculez sur le réseau BNB Smart Chain dans MetaMask.");
-                        return;
-                    }
-                }
+                // 2. Créer un accès DIRECT à la blockchain (pour éviter les erreurs de MetaMask)
+                const directProvider = new ethers.providers.JsonRpcProvider("https://bsc-dataseed1.binance.org/");
+                const contract = new ethers.Contract(contractAddress, minABI, directProvider);
 
-                // ÉTAPE 4 : Lire le solde
-                const contract = new ethers.Contract(contractAddress, minABI, provider);
+                // 3. Lire le solde
                 const balance = await contract.balanceOf(userAddress);
                 const formatted = ethers.utils.formatUnits(balance, 18);
                 
-                // MISE À JOUR UI
+                // UI
                 connectBtn.innerText = userAddress.substring(0,6) + "..." + userAddress.substring(userAddress.length - 4);
                 connectBtn.style.background = "#16a34a";
                 
@@ -99,11 +79,11 @@
 
             } catch (err) {
                 console.error(err);
-                alert("Erreur de connexion : " + err.message);
+                alert("Erreur critique : " + err.message);
             }
         }
 
-        connectBtn.onclick = startConnection;
+        connectBtn.onclick = connectAndRead;
     </script>
 </body>
 </html>
