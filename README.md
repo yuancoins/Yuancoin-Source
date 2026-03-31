@@ -71,7 +71,8 @@ The project includes a unified wallet (Desktop / Mobile / Web), a dynamic reward
 - 💾 **Code source officiel** : [Yuancoin GitHub](https://github.com/yuancoins/Yuancoin-Source)  
 - 🪙 **Token** : YCC  
 - 👤 **Auteur / Author** : Arnaud Biondelli – Founder & Lead Developer of Yuanverse  
-- 🌐 **Site web (à venir)** : [yuanverse.io](https://yuanverse.io)  
+- 🌐 **Site web (à venir)** : [yuanverse.io](https://yuanverse.io)
+- Email : biondelliarnaud71@gmail.com
 
 ---
 
