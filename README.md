@@ -1,91 +1,67 @@
+# 🏺 Yuanverse (YCC) — The Decentralized Art Standard
 
-<p align="center">
-  <img src="assets/banner_yuanverse_v2.png" alt="Yuanverse v2 Banner" width="1200">
-</p>
+![Yuanverse Logo](https://yuancoins.github.io/Yuancoin-Source/assets/logo_yuanverse_v2.png)
 
-<h1 align="center">🪙 Yuanverse v2 — Decentralized AI & Web3 Ecosystem</h1>
-<h3 align="center"><i>The next evolution of Yuancoin</i></h3>
+**Yuanverse** est un écosystème décentralisé conçu pour protéger, valoriser et propulser l'artisanat d'exception dans l'ère du Web3. Porté par le jeton **Yuancoin (YCC)**, ce projet fait le pont entre le geste ancestral et la finance de demain.
 
 ---
 
-### 📘 Présentation / Overview
+## 💎 La Vision Artifar
 
-**🇫🇷**  
-Yuanverse v2 marque l’évolution de **Yuancoin (YCC)** vers un écosystème Web3 moderne, interconnecté et communautaire.  
-Ce projet vise à offrir un wallet unifié (Desktop / Mobile / Web), un système de récompenses dynamique, et une infrastructure blockchain sécurisée et évolutive.  
+Le premier pilier de notre écosystème est **[Artifar.fr](https://artifar.fr)**, une galerie d'art numérique exclusive qui regroupe les meilleurs artisans et créateurs. 
 
-**🇬🇧**  
-**Yuanverse v2** represents the evolution of **Yuancoin (YCC)** into a modern, interconnected, and community-driven Web3 ecosystem.  
-The project includes a unified wallet (Desktop / Mobile / Web), a dynamic reward system, and a secure, scalable blockchain foundation.  
-
----
-
-### 📄 Télécharger le Whitepaper / Download the Whitepaper
-
-<p align="center">
-  <a href="Yuanverse_Whitepaper_v2_FR-EN_2025.pdf">
-    <img src="https://img.shields.io/badge/Download-Whitepaper-blueviolet?style=for-the-badge" alt="Download Whitepaper">
-  </a>
-</p>
+Contrairement aux plateformes centralisées :
+- **0% Commission :** L'artisan conserve l'intégralité de sa valeur.
+- **Contact Direct :** Pas d'intermédiaire, l'humain est au centre de l'échange.
+- **Standard d'Excellence :** Chaque membre est validé manuellement par la direction.
 
 ---
 
-### ⚙️ Fonctionnalités principales / Key Features
+## ⚙️ Spécifications Techniques
 
-| 🇫🇷 | 🇬🇧 |
-|-----|-----|
-| 💎 **Wallet multi-plateforme** (Desktop, Mobile, Web) | 💎 **Multi-platform wallet** (Desktop, Mobile, Web) |
-| 🎯 **Système de récompenses** basé sur les activités et le staking | 🎯 **Reward system** based on activity and staking |
-| 🧩 **Smart Contracts EVM** : Staking, NFT, Référencement, Récompenses | 🧩 **EVM Smart Contracts**: Staking, NFT, Referral, Rewards |
-| 🔐 **Sécurité avancée** (2FA, seed, cryptage local) | 🔐 **Advanced security** (2FA, seed, local encryption) |
-| 🌍 **Architecture décentralisée** et transparente | 🌍 **Decentralized and transparent architecture** |
+Le **Yuancoin (YCC)** est déployé sur la **Binance Smart Chain (BSC)** pour garantir des transactions rapides, sécurisées et à bas coûts.
 
----
-
-### 🪙 Tokenomics
-
-| Catégorie | Pourcentage | Détail |
-|------------|-------------|--------|
-| 🔧 Développement & Infrastructure | 30 % | Financement du développement et maintenance technique |
-| 🎁 Récompenses & Staking | 25 % | Distribution pour utilisateurs actifs et investisseurs fidèles |
-| 💼 Partenariats & Marketing | 20 % | Croissance de l’écosystème Yuanverse |
-| 🛡️ Réserve stratégique | 15 % | Sécurité et stabilisation du marché |
-| 👥 Communauté & DAO | 10 % | Gouvernance et décisions communautaires |
+- **Nom :** Yuancoin
+- **Symbole :** YCC
+- **Réseau :** Binance Smart Chain (BEP-20)
+- **Contrat :** `0x4E87b6409605559F0B30372863B8B9B16C81BE95`
+- **Liquidité :** Verrouillée pour la sécurité de la communauté.
 
 ---
 
-### 🗓️ Feuille de route / Roadmap 2025–2026
+## 🚀 Écosystème & Utilité
 
-| Période | Étapes clés |
-|----------|-------------|
-| **T1 2025** | Migration du réseau Yuancoin vers architecture EVM |
-| **T2 2025** | Développement du wallet multi-plateforme |
-| **T3 2025** | Lancement du système de récompenses (missions, parrainage) |
-| **T4 2025** | Publication du Mainnet Yuanverse v2 |
-| **2026** | Extension internationale + intégration DAO et NFT Marketplace |
+1. **Gouvernance :** Le YCC permet à la communauté de soutenir des projets artisanaux spécifiques.
+2. **Certification :** Intégration future de certificats d'authenticité numériques (NFT) liés aux objets physiques.
+3. **Récompenses :** Système de "Cashback" et de fidélité pour les collectionneurs de la galerie Artifar.
 
 ---
 
-### 🔗 Ressources / Resources
+## 🛒 Comment acquérir du YCC ?
 
-- 💾 **Code source officiel** : [Yuancoin GitHub](https://github.com/yuancoins/Yuancoin-Source)  
-- 🪙 **Token** : YCC  
-- 👤 **Auteur / Author** : Arnaud Biondelli – Founder & Lead Developer of Yuanverse  
-- 🌐 **Site web (à venir)** : [yuanverse.io](https://yuanverse.io)
-- Email : biondelliarnaud71@gmail.com
+Vous pouvez échanger vos actifs contre du Yuancoin directement via **PancakeSwap** :
+
+👉 [Acheter YCC sur PancakeSwap](https://pancakeswap.finance/swap?outputCurrency=0x4E87b6409605559F0B30372863B8B9B16C81BE95)
 
 ---
 
-<p align="center">
-  <i>“De l’artisanat à la chaîne — un monde façonné par la création, l’intelligence et la liberté.”</i><br>
-  <i>“From craftsmanship to the blockchain — a world shaped by creation, intelligence, and freedom.”</i>
-</p>
+## 🛠️ Développement & Contribution
+
+Ce dépôt contient les sources de l'écosystème Yuanverse. Nous croyons en la transparence du code. 
+- **Audit :** En cours de planification.
+- **Communauté :** Rejoignez notre réseau d'artisans et d'investisseurs.
 
 ---
 
-<p align="center">
-  <b>© 2025 Yuanverse v2 – Arnaud Biondelli</b>
-</p>
+## 📬 Contact & Liens Officiels
 
-</p>
+- **Site Web :** [Artifar.fr](https://artifar.fr)
+- **Fondateur :** Arnaud Biondelli
+- **Support :** [wa.me/33777927165](https://wa.me/33777927165)
 
+---
+
+> "Le talent humain magnifié par la technologie blockchain." 
+> — *Arnaud Biondelli, Fondateur*
+
+© 2026 Yuanverse Ecosystem. Built for Excellence.
