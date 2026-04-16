@@ -8,7 +8,7 @@
 
 ## 💎 Le Pilier Physique : Artifar.fr
 
-Le cœur de notre vision s'incarne sur **[Artifar.fr](https://artifar.fr)**, une galerie numérique de prestige pour les créateurs d'élite.
+Le cœur de notre vision s'incarne sur **[Yuanverse.fr](https://yuanverse.fr)**.
 - **Direct-to-Consumer :** 0% de commission, contact direct via WhatsApp.
 - **Excellence :** Sélection rigoureuse des membres par la direction.
 
@@ -18,7 +18,7 @@ Le cœur de notre vision s'incarne sur **[Artifar.fr](https://artifar.fr)**, une
 
 Le **Yuancoin (YCC)** est un jeton BEP-20 garantissant rapidité et frais minimes.
 
-- **Nom :** Yuancoin
+- **Nom :** Yuanverse
 - **Symbole :** YCC
 - **Réseau :** BNB Smart Chain (BSC / BEP-20)
 - **Contrat Officiel :** `0x4E87b6409605559F0B30372863B8B9B16C81BE95`
@@ -45,7 +45,7 @@ Vous pouvez échanger vos actifs contre du Yuancoin directement sur **PancakeSwa
 
 ## 📬 Liens Officiels & Contact
 
-- **Galerie :** [Artifar.fr](https://artifar.fr)
+- **Website :** [Yuanverse.fr](https://yuanverse.fr)
 - **Fondateur :** Arnaud Biondelli
 - **WhatsApp :** [Discuter avec nous](https://wa.me/33777927165)
 
